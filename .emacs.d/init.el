@@ -11,6 +11,13 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+(setq initial-frame-alist
+    (append
+    '((top                 . 22)    ; フレームの Y 位置(ピクセル数)
+	 (left                . 600)   ; フレームの X 位置(ピクセル数)
+	 (width               . 267)    ; フレーム幅(文字数)
+	 (height              . 67))   ; フレーム高(文字数)
+       initial-frame-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 4.1 効率的な設定ファイルの作り方と管理方法             ;;
@@ -386,6 +393,19 @@
    anything-c-moccur-enable-initial-pattern t)
   ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
   (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 6.3 入力の効率化                                       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ▼要拡張機能インストール▼
+;;; P130-131 利用可能にする
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories 
+    "~/.emacs.d/elisp/ac-dict")
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  (ac-config-default))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
