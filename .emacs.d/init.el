@@ -407,6 +407,81 @@
   (ac-config-default))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 6.4 検索と置換の拡張                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ▼要拡張機能インストール▼
+;;; P132 検索結果をリストアップする──color-moccur
+;; color-moccurの設定
+(when (require 'color-moccur nil t)
+  ;; M-oにoccur-by-moccurを割り当て
+  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  ;; スペース区切りでAND検索
+  (setq moccur-split-word t)
+  ;; ディレクトリ検索のとき除外するファイル
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+  ;; Migemoを利用できる環境であればMigemoを使う
+  ;; (when (and (executable-find "cmigemo")
+  ;;            (require 'migemo nil t))
+  ;;   (setq moccur-use-migemo t))
+)
+
+;; ▼要拡張機能インストール▼
+;;; P133-134 moccurの結果を直接編集──moccur-edit
+;; moccur-editの設定
+(require 'moccur-edit nil t)
+;; moccur-edit-finish-editと同時にファイルを保存する
+;; (defadvice moccur-edit-change-file
+;;   (after save-after-moccur-edit-buffer activate)
+;;   (save-buffer))
+
+;; ▼要拡張機能インストール▼
+;;; P136 grepの結果を直接編集──wgrep
+;; wgrepの設定
+(require 'wgrep nil t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 6.5 さまざまな履歴管理                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ▼要拡張機能インストール▼
+;;; P137-138 編集履歴を記憶する──undohist
+;; undohistの設定
+(when (require 'undohist nil t)
+  (undohist-initialize))
+
+;; ▼要拡張機能インストール▼
+;;; P138 アンドゥの分岐履歴──undo-tree
+;; undo-treeの設定
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+
+;; ▼要拡張機能インストール▼
+;;; P139-140 カーソルの移動履歴──point-undo
+;; point-undoの設定
+(when (require 'point-undo nil t)
+  ;; (define-key global-map [f5] 'point-undo)
+  ;; (define-key global-map [f6] 'point-redo)
+  ;; 筆者のお勧めキーバインド
+  (define-key global-map (kbd "M-[") 'point-undo)
+  (define-key global-map (kbd "M-]") 'point-redo)
+  )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 6.6 ウィンドウ管理                                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ▼要拡張機能インストール▼
+;;; P141-143 ウィンドウの分割状態を管理──ElScreen
+;; ElScreenのプレフィックスキーを変更する（初期値はC-z）
+;; (setq elscreen-prefix-key (kbd "C-t"))
+(when (require 'elscreen nil t)
+  ;; C-z C-zをタイプした場合にデフォルトのC-zを利用する
+  (if window-system
+      (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
+    (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 7.9 シェルの利用                                       ;;
