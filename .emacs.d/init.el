@@ -661,6 +661,55 @@
 ;; ruby-mode-hookに追加
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 7.5 特殊な文字の入力補助                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ▼要拡張機能インストール▼
+;;; P201-202 絵文字の入力補助 emoji.el
+;; (require 'emoji)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 7.6 差分とマージ                                       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; P206 同一フレーム内にコントロールパネルを表示する
+;; ediffコントロールパネルを別フレームにしない
+;; (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 7.7 Emacsからデータベースを操作                        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; P210-211 MySQLへ接続する──sql-interactive-mode
+;; SQLサーバへ接続するためのデフォルト情報
+;; (setq sql-user "root" ; デフォルトユーザ名
+;;       sql-database "database_name" ;  データベース名
+;;       sql-server "localhost" ; ホスト名
+;;       sql-product 'mysql) ; データベースの種類
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 7.8 バージョン管理                                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ▼要拡張機能インストール▼
+;;; P215-216 Subversionフロントエンド psvn
+;; (when (executable-find "svn")
+;;   (setq svn-status-verbose nil)
+;;   (autoload 'svn-status "psvn" "Run `svn status'." t))
+
+;; ▼要拡張機能インストール▼
+;;; P217-219 Gitフロントエンド Egg
+;; GitフロントエンドEggの設定
+;; (when (executable-find "git")
+;;   (require 'egg nil t))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 7.9 シェルの利用                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -669,8 +718,8 @@
 ;; multi-termの設定
 (when (require 'multi-term nil t)
   ;; 使用するシェルを指定
-  ;; (setq multi-term-program "/bin/bash"))
   (setq multi-term-program "/bin/zsh"))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -680,3 +729,114 @@
 ;; TRAMPでバックアップファイルを作成しない
 (add-to-list 'backup-directory-alist
              (cons tramp-file-name-regexp nil))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 7.11 ドキュメント閲覧・検索                            ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; P226-228 Emacs版manビューア（WoMan）の利用
+;; キャッシュを作成
+;; (setq woman-cache-filename "~/.emacs.d/.wmncach.el")
+;; ;; manパスを設定
+;; (setq woman-manpath '("/usr/share/man"
+;;                       "/usr/local/share/man"
+;;                       "/usr/local/share/man/ja"))
+;; ;; ▼要拡張機能インストール▼
+;; ;; anything-for-document用のソースを定義
+;; (setq anything-for-document-sources
+;;       (list anything-c-source-man-pages
+;;             anything-c-source-info-cl
+;;             anything-c-source-info-pages
+;;             anything-c-source-info-elisp
+;;             anything-c-source-apropos-emacs-commands
+;;             anything-c-source-apropos-emacs-functions
+;;             anything-c-source-apropos-emacs-variables))
+
+;; ;; anything-for-documentコマンドを作成
+;; (defun anything-for-document ()
+;;   "Preconfigured `anything' for anything-for-document."
+;;   (interactive)
+;;   (anything anything-for-document-sources
+;;             (thing-at-point 'symbol) nil nil nil
+;;             "*anything for document*"))
+
+;; ;; Command+dにanything-for-documentを割り当て
+;; (define-key global-map (kbd "s-d") 'anything-for-document)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;            オマケ                                      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; カーソル位置のファイルパスやアドレスを "C-x C-f" で開く
+(ffap-bindings)
+
+
+;;; 筆者のキーバインド設定
+;; Mac の Command + f と C-x b で anything-for-files
+(define-key global-map (kbd "s-f") 'anything-for-files)
+(define-key global-map (kbd "C-x b") 'anything-for-files)
+;; M-k でカレントバッファを閉じる
+(define-key global-map (kbd "M-k") 'kill-this-buffer)
+;; Mac の command + 3 でウィンドウを左右に分割
+(define-key global-map (kbd "s-3") 'split-window-horizontally)
+;; Mac の Command + 2 でウィンドウを上下に分割
+(define-key global-map (kbd "s-2") 'split-window-vertically)
+;; Mac の Command + 1 で現在のウィンドウ以外を閉じる
+(define-key global-map (kbd "s-1") 'delete-other-windows)
+;; Mac の Command + 0 で現在のウィンドウを閉じる
+(define-key global-map (kbd "s-0") 'delete-window)
+;; バッファを全体をインデント
+(defun indent-whole-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+;; C-<f8> でバッファ全体をインデント
+(define-key global-map (kbd "C-<f8>") 'indent-whole-buffer)
+
+
+;; ;;; 改行やタブを可視化する whitespace-mode
+;; (setq whitespace-display-mappings
+;;       '((space-mark ?\x3000 [?\□]) ; zenkaku space
+;;         (newline-mark 10 [8629 10]) ; newlne
+;;         (tab-mark 9 [187 9] [92 9]) ; tab » 187
+;;         )
+;;       whitespace-style
+;;       '(spaces
+;;         ;; tabs
+;;         trailing
+;;         newline
+;;         space-mark
+;;         tab-mark
+;;         newline-mark))
+;; ;; whitespace-modeで全角スペース文字を可視化　
+;; (setq whitespace-space-regexp "\\(\x3000+\\)")
+;; ;; whitespace-mode をオン
+;; (global-whitespace-mode t)
+;; ;; F5 で whitespace-mode をトグル
+;; (define-key global-map (kbd "<f5>") 'global-whitespace-mode)
+
+
+;;; Mac でファイルを開いたときに、新たなフレームを作らない
+(setq ns-pop-up-frames nil)
+
+
+;;; 最近閉じたバッファを復元
+;; http://d.hatena.ne.jp/kitokitoki/20100608/p2
+(defvar my-killed-file-name-list nil)
+
+(defun my-push-killed-file-name-list ()
+  (when (buffer-file-name)
+    (push (expand-file-name (buffer-file-name)) my-killed-file-name-list)))
+
+(defun my-pop-killed-file-name-list ()
+  (interactive)
+  (unless (null my-killed-file-name-list)
+    (find-file (pop my-killed-file-name-list))))
+;; kill-buffer-hook (バッファを消去するときのフック) に関数を追加
+(add-hook 'kill-buffer-hook 'my-push-killed-file-name-list)
+;; Mac の Command + z で閉じたバッファを復元する
+(define-key global-map (kbd "s-z") 'my-pop-killed-file-name-list)
+
+
