@@ -1,3 +1,21 @@
+x-copy-region-as-kill () {
+  zle copy-region-as-kill
+  print -rn $CUTBUFFER | xsel -i
+}
+zle -N x-copy-region-as-kill
+x-kill-region () {
+  zle kill-region
+  print -rn $CUTBUFFER | xsel -i
+}
+zle -N x-kill-region
+x-yank () {
+  CUTBUFFER=$(xsel -o)
+  zle yank
+}
+zle -N x-yank
+bindkey -e '\eW' x-copy-region-as-kill
+bindkey -e '^W' x-kill-region
+bindkey -e '^Y' x-yank
 
 # 環境変数
 export LANG=ja_JP.UTF-8
