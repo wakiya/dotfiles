@@ -13,9 +13,10 @@
 
 (setq initial-frame-alist
     (append
-    '((top                 . 22)    ; フレームの Y 位置(ピクセル数)
-	 (left                . 600)   ; フレームの X 位置(ピクセル数)
-	 (width               . 267)    ; フレーム幅(文字数)
+    '(
+     (top                 . 0)    ; フレームの Y 位置(ピクセル数)
+	 (left                . 2940)   ; フレームの X 位置(ピクセル数)
+	 (width               . 214)    ; フレーム幅(文字数)
 	 (height              . 67))   ; フレーム高(文字数)
        initial-frame-alist))
 
@@ -146,7 +147,7 @@
 ;;; P90 タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
-;; (global-linum-mode t)
+(global-linum-mode t)
 
 
 
@@ -184,7 +185,7 @@
   ;; テーマを読み込むための設定
   (color-theme-initialize)
   ;; テーマhoberに変更する
-  (color-theme-billw))
+  (color-theme-simple-1))
 
 ;; ;;; P97-99 フォントの設定
 ;; (when (eq window-system 'ns)
@@ -267,11 +268,11 @@
 ;; (setq auto-save-default nil) ; 初期値はt
 
 ;; バックアップファイルの作成場所をシステムのTempディレクトリに変更する
-;; (setq backup-directory-alist
-;;       `((".*" . ,temporary-file-directory)))
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
 ;; オートセーブファイルの作成場所をシステムのTempディレクトリに変更する
-;; (setq auto-save-file-name-transforms
-;;       `((".*" ,temporary-file-directory t)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; バックアップとオートセーブファイルを~/.emacs.d/backups/へ集める
 (add-to-list 'backup-directory-alist
@@ -482,6 +483,183 @@
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 6.8 特殊な範囲の編集                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; P151 矩形編集──cua-mode
+;; cua-modeの設定
+(cua-mode t) ; cua-modeをオン
+(setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 7.1 各種言語の開発環境                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; P158 nxml-modeをHTML編集のデフォルトモードに
+;; HTML編集のデフォルトモードをnxml-modeにする
+;; (add-to-list 'auto-mode-alist '("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" . nxml-mode))
+;; ;; ▼要拡張機能インストール▼
+;; ;;; P159 HTML5をnxml-modeで編集する
+;; ;; HTML5
+;; (eval-after-load "rng-loc"
+;;   '(add-to-list 'rng-schema-locating-files "~/.emacs.d/public_repos/html5-el/schemas.xml"))
+;; (require 'whattf-dt)
+
+;; ;;; P160 nxml-modeの基本設定
+;; ;; </を入力すると自動的にタグを閉じる
+;; (setq nxml-slash-auto-complete-flag t)
+;; ;; M-TABでタグを補完する
+;; (setq nxml-bind-meta-tab-to-complete-flag t)
+;; ;; nxml-modeでauto-complete-modeを利用する
+;; (add-to-list 'ac-modes 'nxml-mode)
+;; ;; 子要素のインデント幅を設定する。初期値は2
+;; (setq nxml-child-indent 0)
+;; ;; 属性値のインデント幅を設定する。初期値は4
+;; (setq nxml-attribute-indent 0)
+
+;; ▼要拡張機能インストール▼
+;;; P161 cssm-modeの基本設定
+(defun css-mode-hooks ()
+  "css-mode hooks"
+  ;; インデントをCスタイルにする
+  (setq cssm-indent-function #'cssm-c-style-indenter)
+  ;; インデント幅を2にする
+  (setq cssm-indent-level 2)
+  ;; インデントにタブ文字を使わない
+  (setq-default indent-tabs-mode nil)
+  ;; 閉じ括弧の前に改行を挿入する
+  (setq cssm-newline-before-closing-bracket ))
+
+(add-hook 'css-mode-hook 'css-mode-hooks)
+
+;;; P163 js-modeの基本設定
+(defun js-indent-hook ()
+  ;; インデント幅を4にする
+  (setq js-indent-level 2
+        js-expr-indent-offset 2
+        indent-tabs-mode nil)
+  ;; switch文のcaseラベルをインデントする関数を定義する
+  (defun my-js-indent-line () ; ←1●
+    (interactive)
+    (let* ((parse-status (save-excursion (syntax-ppss (point-at-bol))))
+           (offset (- (current-column) (current-indentation)))
+           (indentation (js--proper-indentation parse-status)))
+      (back-to-indentation)
+      (if (looking-at "case\\s-")
+          (indent-line-to (+ indentation 2))
+        (js-indent-line))
+      (when (> offset 0) (forward-char offset))))
+  ;; caseラベルのインデント処理をセットする
+  (set (make-local-variable 'indent-line-function) 'my-js-indent-line)
+  ;; ここまでcaseラベルを調整する設定
+  )
+
+;; js-modeの起動時にhookを追加
+(add-hook 'js-mode-hook 'js-indent-hook)
+
+;; ▼要拡張機能インストール▼
+;;; P165 php-mode
+;; php-modeの設定
+(when (require 'php-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . php-mode))
+  (setq php-search-url "http://jp.php.net/ja/")
+  (setq php-manual-url "http://jp.php.net/manual/ja/"))
+
+;;; P166 php-modeのインデントを調整する
+;; php-modeのインデント設定
+(defun php-indent-hook ()
+  (setq indent-tabs-mode nil)
+  (setq c-basic-offset 4)
+  ;; (c-set-offset 'case-label '+) ; switch文のcaseラベル
+  (c-set-offset 'arglist-intro '+) ; 配列の最初の要素が改行した場合
+  (c-set-offset 'arglist-close 0)) ; 配列の閉じ括弧
+
+(add-hook 'php-mode-hook 'php-indent-hook)
+
+;; ▼要拡張機能インストール▼
+;;; P166-167 PHP補完入力──php-completion
+;; php-modeの補完を強化する
+(defun php-completion-hook ()
+  (when (require 'php-completion nil t)
+    (php-completion-mode t)
+    (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
+
+    (when (require 'auto-complete nil t)
+    (make-variable-buffer-local 'ac-sources)
+    (add-to-list 'ac-sources 'ac-source-php-completion)
+    (auto-complete-mode t))))
+
+(add-hook 'php-mode-hook 'php-completion-hook)
+
+;; P168-169 cperl-mode
+;; perl-modeをcperl-modeのエイリアスにする
+(defalias 'perl-mode 'cperl-mode)
+
+;;; P170 cperl-modeのインデントを調整する
+;; cperl-modeのインデント設定
+(setq cperl-indent-level 4 ; インデント幅を4にする
+      cperl-continued-statement-offset 4 ; 継続する文のオフセット※
+      cperl-brace-offset -4 ; ブレースのオフセット
+      cperl-label-offset -4 ; labelのオフセット
+      cperl-indent-parens-as-block t ; 括弧もブロックとしてインデント
+      cperl-close-paren-offset -4 ; 閉じ括弧のオフセット
+      cperl-tab-always-indent t ; TABをインデントにする
+      cperl-highlight-variables-indiscriminately t) ; スカラを常にハイライトする
+
+;; ▼要拡張機能インストール▼
+;;; P170 yaml-mode
+;; yaml-modeの設定
+(when (require 'yaml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+
+;; ▼要拡張機能インストール▼
+;;; P171 Perl補完入力──perl-completion
+;; perl-completionの設定
+(defun perl-completion-hook ()
+  (when (require 'perl-completion nil t)
+    (perl-completion-mode t)
+    (when (require 'auto-complete nil t)
+      (auto-complete-mode t)
+      (make-variable-buffer-local 'ac-sources)
+      (setq ac-sources
+            '(ac-source-perl-completion)))))
+
+(add-hook  'cperl-mode-hook 'perl-completion-hook)
+
+;;; P169 コラム　便利なエイリアス
+;; dtwをdelete-trailing-whitespaceのエイリアスにする
+(defalias 'dtw 'delete-trailing-whitespace)
+
+;;; P172 ruby-modeのインデントを調整する
+;; ruby-modeのインデント設定
+(setq ;; ruby-indent-level 3 ; インデント幅を3に。初期値は2
+      ruby-deep-indent-paren-style nil ; 改行時のインデントを調整する
+      ;; ruby-mode実行時にindent-tabs-modeを設定値に変更
+      ;; ruby-indent-tabs-mode t ; タブ文字を使用する。初期値はnil
+      ) 
+
+;; ▼要拡張機能インストール▼
+;;; P172-173 Ruby編集用の便利なマイナーモード
+;; 括弧の自動挿入──ruby-electric
+(require 'ruby-electric nil t)
+;; endに対応する行のハイライト──ruby-block
+(when (require 'ruby-block nil t)
+  (setq ruby-block-highlight-toggle t))
+;; インタラクティブRubyを利用する──inf-ruby
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+
+;; ruby-mode-hook用の関数を定義
+(defun ruby-mode-hooks ()
+  (inf-ruby-keys)
+  (ruby-electric-mode t)
+  (ruby-block-mode t))
+;; ruby-mode-hookに追加
+(add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 7.9 シェルの利用                                       ;;
