@@ -11,13 +11,18 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+;;Top,leftの現在位置を確認
+;;(frame-parameters)
+
 (setq initial-frame-alist
     (append
     '(
      (top                 . 0)    ; フレームの Y 位置(ピクセル数)
-	 (left                . 2940)   ; フレームの X 位置(ピクセル数)
-	 (width               . 214)    ; フレーム幅(文字数)
-	 (height              . 67))   ; フレーム高(文字数)
+	 ;; (left                . 2940)   ; フレームの X 位置(ピクセル数)
+	 ;; (width               . 214)    ; フレーム幅(文字数)
+	 (left                . 2560)   ; フレームの X 位置(ピクセル数)
+	 (width               . 268)    ; フレーム幅(文字数)
+	 (height              . 70))   ; フレーム高(文字数)
        initial-frame-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -773,7 +778,6 @@
 ;;; カーソル位置のファイルパスやアドレスを "C-x C-f" で開く
 (ffap-bindings)
 
-
 ;;; 筆者のキーバインド設定
 ;; Mac の Command + f と C-x b で anything-for-files
 (define-key global-map (kbd "s-f") 'anything-for-files)
@@ -796,7 +800,7 @@
 (define-key global-map (kbd "C-<f8>") 'indent-whole-buffer)
 
 
-;; ;;; 改行やタブを可視化する whitespace-mode
+;;; 改行やタブを可視化する whitespace-mode
 ;; (setq whitespace-display-mappings
 ;;       '((space-mark ?\x3000 [?\□]) ; zenkaku space
 ;;         (newline-mark 10 [8629 10]) ; newlne
@@ -839,4 +843,52 @@
 ;; Mac の Command + z で閉じたバッファを復元する
 (define-key global-map (kbd "s-z") 'my-pop-killed-file-name-list)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;              rubikitch                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                     wa                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; キーバインド設定
+(define-key global-map (kbd "s-m") 'follow-delete-other-windows-and-split)
+(define-key global-map (kbd "C-h") 'delete-backward-char)
+
+;; 行コピー
+;; http://akisute3.hatenablog.com/entry/20120412/1334237294
+(defun copy-whole-line (&optional arg)
+  "Copy current line."
+  (interactive "p")
+  (or arg (setq arg 1))
+  (if (and (> arg 0) (eobp) (save-excursion (forward-visible-line 0) (eobp)))
+      (signal 'end-of-buffer nil))
+  (if (and (< arg 0) (bobp) (save-excursion (end-of-visible-line) (bobp)))
+      (signal 'beginning-of-buffer nil))
+  (unless (eq last-command 'copy-region-as-kill)
+    (kill-new "")
+    (setq last-command 'copy-region-as-kill))
+  (cond ((zerop arg)
+         (save-excursion
+           (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
+           (copy-region-as-kill (point) (progn (end-of-visible-line) (point)))))
+        ((< arg 0)
+         (save-excursion
+           (copy-region-as-kill (point) (progn (end-of-visible-line) (point)))
+           (copy-region-as-kill (point)
+                                (progn (forward-visible-line (1+ arg))
+                                       (unless (bobp) (backward-char))
+                                       (point)))))
+        (t
+         (save-excursion
+           (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
+           (copy-region-as-kill (point)
+                                (progn (forward-visible-line arg) (point))))))
+  (message (substring (car kill-ring-yank-pointer) 0 -1)))
+
+(global-set-key (kbd "M-k") 'copy-whole-line)
+(global-set-key (kbd "M-K") 'kill-whole-line)
 

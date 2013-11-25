@@ -7,7 +7,7 @@
   ("if" .
    [2 0])
   ("nil" .
-   [1 0 0])
+   [3 0 0])
   ("color-theme-arjen" .
    [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
   ("color-theme-dark-blue" .
