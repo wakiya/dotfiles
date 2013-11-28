@@ -1,22 +1,32 @@
-((("color-theme-gray30" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-hober" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("IF" .
-   [0 1])
-  ("if" .
+((("delete-backward-char" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("frame-width" .
+   [0 0 0 0 0 0 0 1 1 0 0])
+  ("scroll-bar-mode" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("-1" .
    [2 0])
-  ("nil" .
-   [3 0 0])
-  ("color-theme-arjen" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-dark-blue" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-dark-blue2" .
-   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("color-theme-deep-blue" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("tool-bar-mode" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("color-theme-simple-1" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0])
   ("color-theme-comidia" .
    [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("color-theme-simple-1" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0])))
+  ("color-theme-deep-blue" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("color-theme-dark-blue2" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("color-theme-dark-blue" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("color-theme-arjen" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("nil" .
+   [4 0 0])
+  ("if" .
+   [2 0])
+  ("IF" .
+   [0 1])
+  ("color-theme-hober" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("color-theme-gray30" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])))
