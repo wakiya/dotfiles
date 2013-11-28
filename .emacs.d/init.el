@@ -21,7 +21,7 @@
 	 ;; (left                . 2940)   ; フレームの X 位置(ピクセル数)
 	 ;; (width               . 214)    ; フレーム幅(文字数)
 	 (left                . 2560)   ; フレームの X 位置(ピクセル数)
-	 (width               . 268)    ; フレーム幅(文字数)
+	 (width               . 270)    ; フレーム幅(文字数)
 	 (height              . 70))   ; フレーム高(文字数)
        initial-frame-alist))
 
@@ -91,7 +91,7 @@
 ;; 折り返しトグルコマンド
 ;;(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
 ;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
-(define-key global-map (kbd "C-t") 'other-window)
+;; (define-key global-map (kbd "C-t") 'other-window)
 
 
 
@@ -482,7 +482,7 @@
 ;; ▼要拡張機能インストール▼
 ;;; P141-143 ウィンドウの分割状態を管理──ElScreen
 ;; ElScreenのプレフィックスキーを変更する（初期値はC-z）
-;; (setq elscreen-prefix-key (kbd "C-t"))
+(setq elscreen-prefix-key (kbd "C-t"))
 (when (require 'elscreen nil t)
   ;; C-z C-zをタイプした場合にデフォルトのC-zを利用する
   (if window-system
@@ -857,6 +857,9 @@
 ;;; キーバインド設定
 (define-key global-map (kbd "s-m") 'follow-delete-other-windows-and-split)
 (define-key global-map (kbd "C-h") 'delete-backward-char)
+(define-key global-map (kbd "M-g") 'goto-line)
+(define-key global-map (kbd "C-z") 'line-end-position)
+
 
 ;; 行コピー
 ;; http://akisute3.hatenablog.com/entry/20120412/1334237294
@@ -892,3 +895,8 @@
 (global-set-key (kbd "M-k") 'copy-whole-line)
 (global-set-key (kbd "M-K") 'kill-whole-line)
 
+;; ange-ftp
+;; keirin-express ftp setting
+(require 'ange-ftp)
+(setq ange-ftp-default-user "ftp-kviss1")
+(ange-ftp-set-passwd "117.20.102.133" "ftp-kviss1" "zZT6ffcL")
