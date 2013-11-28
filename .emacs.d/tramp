@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <13/11/24 22:28:13 /Users/yoshihirowakiya/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <13/11/28 22:03:45 /Users/yoshihirowakiya/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -76,4 +76,8 @@
   ("stat" "\\stat")
   ("file-exists" "test -e")
   ("id" "/usr/bin/id")
-  ("gid-integer" 502)))
+  ("gid-integer" 502))
+ (["ftp" "ftp-kviss1" "117.20.102.133" nil nil]
+  ("started" t))
+ (["ftp" nil "117.20.102.133" nil nil]
+  ("started" t)))

@@ -186,11 +186,11 @@
 ;; ▼要拡張機能インストール▼
 ;;; P96-97 表示テーマの設定
 ;; http://download.savannah.gnu.org/releases/color-theme/color-theme-6.6.0.tar.gz
-(when (require 'color-theme nil t)
-  ;; テーマを読み込むための設定
-  (color-theme-initialize)
-  ;; テーマhoberに変更する
-  (color-theme-simple-1))
+;; (when (require 'color-theme nil t)
+;;   ;; テーマを読み込むための設定
+;;   (color-theme-initialize)
+;;   ;; テーマhoberに変更する
+;;   (color-theme-simple-1))
 
 ;; ;;; P97-99 フォントの設定
 ;; (when (eq window-system 'ns)
@@ -860,6 +860,9 @@
 (define-key global-map (kbd "M-g") 'goto-line)
 (define-key global-map (kbd "C-z") 'line-end-position)
 
+;; custom-theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'sunburst t)
 
 ;; 行コピー
 ;; http://akisute3.hatenablog.com/entry/20120412/1334237294
