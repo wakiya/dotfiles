@@ -152,8 +152,9 @@
 ;;; P90 タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
-(global-linum-mode t)
-
+;;(global-linum-mode t)
+;; F9で行番号を表示
+(global-set-key [f5] 'linum-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -723,8 +724,20 @@
 ;; multi-termの設定
 (when (require 'multi-term nil t)
   ;; 使用するシェルを指定
-  (setq multi-term-program "/bin/zsh"))
+  (setq multi-term-program "/bin/zsh")
 
+  (add-to-list 'term-unbind-key-list '"M-x")
+  (add-to-list 'term-unbind-key-list '"C-t"))
+
+(add-hook 'term-mode-hook
+		  '(lambda ()
+			 ;; C-h を term 内文字削除にする
+			 (define-key term-raw-map (kbd "C-h") 'term-send-backspace)
+			 ;; C-y を term 内ペーストにする
+			 (define-key term-raw-map (kbd "C-y") 'term-paste)
+			 ;; ESC ESC で vi での ESC にする
+			 (define-key term-raw-map (kbd "ESC ESC") 'term-send-raw)
+			 ))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -859,6 +872,22 @@
 (define-key global-map (kbd "C-h") 'delete-backward-char)
 (define-key global-map (kbd "M-g") 'goto-line)
 (define-key global-map (kbd "C-z") 'line-end-position)
+(global-set-key [f3] 'multi-term)
+
+(add-hook 'term-mode-hook
+     (lambda ()
+        (define-key term-raw-map (kbd "M-p")
+          (lambda ()
+            "history-beginning-search-backward-end"
+            (interactive)
+            (term-send-raw-string "hbsb-ep")))
+        (define-key term-raw-map (kbd "M-n")
+          (lambda ()
+            "history-beginning-search-forward-end"
+            (interactive)
+            (term-send-raw-string "hbsb-en")))
+        ))
+
 
 ;; custom-theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
