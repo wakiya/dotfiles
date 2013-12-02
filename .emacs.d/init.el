@@ -100,7 +100,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; P82-83 パスの設定
 ;;(add-to-list 'exec-path "/opt/local/bin")
-;;(add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "/usr/local/bin")
 ;;(add-to-list 'exec-path "~/bin")
 
 ;;; P85 文字コードを指定する
@@ -429,9 +429,9 @@
   (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
   (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
   ;; Migemoを利用できる環境であればMigemoを使う
-  ;; (when (and (executable-find "cmigemo")
-  ;;            (require 'migemo nil t))
-  ;;   (setq moccur-use-migemo t))
+  (when (and (executable-find "cmigemo")
+             (require 'migemo nil t))
+    (setq moccur-use-migemo t))
 )
 
 ;; ▼要拡張機能インストール▼
@@ -876,6 +876,10 @@
 
 (add-hook 'term-mode-hook
      (lambda ()
+	   ;; multi-term でコマンド履歴を遡れるようにする
+	   ;; 合わせて .zshrc に以下を記述
+	   ;; bindkey "hbsb-ep" history-beginning-search-backward-end
+	   ;; bindkey "hbsb-en" history-beginning-search-forward-end
         (define-key term-raw-map (kbd "M-p")
           (lambda ()
             "history-beginning-search-backward-end"
@@ -932,3 +936,18 @@
 (require 'ange-ftp)
 (setq ange-ftp-default-user "ftp-kviss1")
 (ange-ftp-set-passwd "117.20.102.133" "ftp-kviss1" "zZT6ffcL")
+
+
+;; for C/Migemo
+;; written by migemo.el
+(when (and (executable-find "cmigemo")
+           (require 'migemo nil t))
+  (setq migemo-command "/usr/local/bin/cmigemo")
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (setq migemo-regex-dictionary nil)
+  (load-library "migemo")
+  (migemo-init)
+)
