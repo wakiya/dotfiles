@@ -7,7 +7,7 @@
 ;; おまじない
 (require 'cl)
 ;; Emacsからの質問をy/nで回答する
-;; (fset 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p)
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
@@ -18,8 +18,6 @@
     (append
     '(
      (top                 . 0)    ; フレームの Y 位置(ピクセル数)
-	 ;; (left                . 2940)   ; フレームの X 位置(ピクセル数)
-	 ;; (width               . 214)    ; フレーム幅(文字数)
 	 (left                . 2560)   ; フレームの X 位置(ピクセル数)
 	 (width               . 270)    ; フレーム幅(文字数)
 	 (height              . 70))   ; フレーム高(文字数)
@@ -379,7 +377,12 @@
 
   (when (require 'descbinds-anything nil t)
     ;; describe-bindingsをAnythingに置き換える
-    (descbinds-anything-install)))
+    (descbinds-anything-install))
+
+  ;; recentfを拡張する
+  ;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
+  (require 'recentf-ext nil t)
+)
 
 ;; ▼要拡張機能インストール▼
 ;;; P127-128 過去の履歴からペースト──anything-show-kill-ring
@@ -964,7 +967,6 @@
 (setq ange-ftp-default-user "ftp-kviss1")
 (ange-ftp-set-passwd "117.20.102.133" "ftp-kviss1" "zZT6ffcL")
 
-
 ;; for C/Migemo
 ;; written by migemo.el
 ;; cmigemo
@@ -984,7 +986,6 @@
   (migemo-init)
 )
 
-
 ;; automatic highlighting current symbol like eclipse IDE.
 ;; https://github.com/emacsmirror/auto-highlight-symbol
 (when (require 'auto-highlight-symbol nil t)
@@ -994,7 +995,13 @@
 ;; http://www.emacswiki.org/emacs/download/thing-opt.el
 (when (require 'thing-opt nil t)
   (define-thing-commands)
-  (global-set-key (kbd "C-=") 'mark-word*)
+  (global-set-key (kbd "C-;") 'mark-word*)
   ;; (global-set-key (kbd "C--") 'mark-string)
   ;; (global-set-key (kbd "C-(") 'mark-up-list)
 )
+
+;; バッファ自動再読み込み
+;; emacs以外のものからファイルが編集された場合もbufferを再読込する
+(global-auto-revert-mode 1)
+
+
