@@ -378,10 +378,6 @@
   (when (require 'descbinds-anything nil t)
     ;; describe-bindingsをAnythingに置き換える
     (descbinds-anything-install))
-
-  ;; recentfを拡張する
-  ;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
-  (require 'recentf-ext nil t)
 )
 
 ;; ▼要拡張機能インストール▼
@@ -402,7 +398,9 @@
    ;; 起動時にポイントの位置の単語を初期パターンにする
    anything-c-moccur-enable-initial-pattern t)
   ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
-  (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
+  (global-set-key (kbd "M-s") 'anything-c-moccur-occur-by-moccur)
+  (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
+  (define-key isearch-mode-map (kbd "C-M-o") 'isearch-occur))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -481,7 +479,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.6 ウィンドウ管理                                     ;;
+;; 6.6 ウンドウ管理                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ▼要拡張機能インストール▼
 ;;; P141-143 ウィンドウの分割状態を管理──ElScreen
@@ -761,7 +759,6 @@
 ;; 7.10 TRAMPによるサーバ接続                             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (require 'tramp)
-;; (require 'tramp)
 ;; (require 'tramp-sh)
 
 ;; (setq explicit-shell-file-name "bash")
@@ -996,12 +993,27 @@
 (when (require 'thing-opt nil t)
   (define-thing-commands)
   (global-set-key (kbd "C-;") 'mark-word*)
-  ;; (global-set-key (kbd "C--") 'mark-string)
+  (global-set-key (kbd "C-=") 'mark-string)
   ;; (global-set-key (kbd "C-(") 'mark-up-list)
 )
 
 ;; バッファ自動再読み込み
 ;; emacs以外のものからファイルが編集された場合もbufferを再読込する
 (global-auto-revert-mode 1)
+
+(when (require 'uniquify nil t)
+  ;; filename<dir> 形式のバッファ名にする
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+  ;; *で囲まれたバッファ名は対象外にする
+  (setq uniquify-ignore-buffers-re "*[^*]+*")
+)
+
+;; recentfを拡張する
+;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
+(when  (require 'recentf-ext nil t)
+  (setq recentf-max-saved-items 3000)
+  (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
+  (global-set-key (kbd "C-c r") 'recentf-open-files)
+)
 
 
