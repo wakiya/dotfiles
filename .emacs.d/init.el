@@ -89,7 +89,7 @@
 ;; 先ほどとは異なりglobal-set-keyを利用
 ;;(global-set-key (kbd "C-m") 'newline-and-indent)
 ;; 折り返しトグルコマンド
-;;(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
+(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
 ;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
 ;; (define-key global-map (kbd "C-t") 'other-window)
 
@@ -599,6 +599,20 @@
 
 (add-hook 'php-mode-hook 'php-completion-hook)
 
+;; (defun php-cmment-hook()
+;;   (setq comment-start "// "
+;; 		comment-end   ""
+;; 		comment-start-skip "// *")
+;;   (setq comment-use-syntax t))
+;; (add-hook 'php-mode-hook 'php-cmment-hook)
+
+;; (add-hook 'php-mode-hook
+;;           (lambda()
+;;              (setq comment-start "// "
+;;                    comment-end   ""
+;;                    comment-start-skip "// *")
+;;              (setq comment-use-syntax t)))
+
 ;; P168-169 cperl-mode
 ;; perl-modeをcperl-modeのエイリアスにする
 (defalias 'perl-mode 'cperl-mode)
@@ -743,11 +757,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 7.10 TRAMPによるサーバ接続                             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (require 'tramp)
+;; (require 'tramp)
+;; (require 'tramp-sh)
+
+;; (setq explicit-shell-file-name "bash")
+
+;; (setq tramp-default-method "ssh")
+;; (setq tramp-encoding-shell "bash")
 ;;; P225 バックアップファイルを作成しない
 ;; TRAMPでバックアップファイルを作成しない
 (add-to-list 'backup-directory-alist
              (cons tramp-file-name-regexp nil))
 
+;; (setq tramp-default-method "ssh")
+;; (setq tramp-verbose 10) 
+;; (add-to-list 'tramp-remote-path "/usr/bin/id")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -894,6 +919,8 @@
 
 
 ;; custom-theme
+;; https://github.com/neomantic/Emacs-Sunburst-Color-Theme
+;; https://github.com/neomantic/Emacs-Sunburst-Color-Theme/blob/master/sunburst-theme.el
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'sunburst t)
 
@@ -940,6 +967,11 @@
 
 ;; for C/Migemo
 ;; written by migemo.el
+;; cmigemo
+;; http://www.kaoriya.net/software/cmigemo/
+;; https://github.com/koron/cmigemo
+;; migemo.el
+;; https://gist.github.com/tomoya/457761
 (when (and (executable-find "cmigemo")
            (require 'migemo nil t))
   (setq migemo-command "/usr/local/bin/cmigemo")
@@ -950,4 +982,19 @@
   (setq migemo-regex-dictionary nil)
   (load-library "migemo")
   (migemo-init)
+)
+
+
+;; automatic highlighting current symbol like eclipse IDE.
+;; https://github.com/emacsmirror/auto-highlight-symbol
+(when (require 'auto-highlight-symbol nil t)
+  (global-auto-highlight-symbol-mode t))
+
+;; http://dev.ariel-networks.com/articles/emacs/part5/
+;; http://www.emacswiki.org/emacs/download/thing-opt.el
+(when (require 'thing-opt nil t)
+  (define-thing-commands)
+  (global-set-key (kbd "C-=") 'mark-word*)
+  ;; (global-set-key (kbd "C--") 'mark-string)
+  ;; (global-set-key (kbd "C-(") 'mark-up-list)
 )
