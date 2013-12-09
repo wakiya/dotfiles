@@ -997,6 +997,7 @@
 ;; emacs以外のものからファイルが編集された場合もbufferを再読込する
 (global-auto-revert-mode 1)
 
+;; rubikichi p84
 (when (require 'uniquify nil t)
   ;; filename<dir> 形式のバッファ名にする
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -1004,6 +1005,7 @@
   (setq uniquify-ignore-buffers-re "*[^*]+*")
 )
 
+;; rubikichi p87
 ;; recentfを拡張する
 ;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
 (when  (require 'recentf-ext nil t)
@@ -1012,4 +1014,6 @@
   (global-set-key (kbd "C-c r") 'recentf-open-files)
 )
 
-
+;; rubikichi p102
+;; dired でファイル名を直接編集
+(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
