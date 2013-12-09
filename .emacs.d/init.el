@@ -600,19 +600,15 @@
 
 (add-hook 'php-mode-hook 'php-completion-hook)
 
-;; (defun php-cmment-hook()
-;;   (setq comment-start "// "
-;; 		comment-end   ""
-;; 		comment-start-skip "// *")
-;;   (setq comment-use-syntax t))
-;; (add-hook 'php-mode-hook 'php-cmment-hook)
-
-;; (add-hook 'php-mode-hook
-;;           (lambda()
-;;              (setq comment-start "// "
-;;                    comment-end   ""
-;;                    comment-start-skip "// *")
-;;              (setq comment-use-syntax t)))
+;; comment を /* */ から // へ
+;; http://stackoverflow.com/questions/10758743/how-to-configure-emacs-to-properly-comment-code-in-php-mode
+(defun php-comment-hook()
+  (setq comment-multi-line nil
+        comment-start "// "
+        comment-end ""
+        comment-style 'indent
+        comment-use-syntax t))
+(add-hook 'php-mode-hook 'php-comment-hook)
 
 ;; P168-169 cperl-mode
 ;; perl-modeをcperl-modeのエイリアスにする
