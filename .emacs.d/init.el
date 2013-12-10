@@ -950,9 +950,15 @@
 								(bm-buffer-save-all)
 								(bm-repository-save)))
   (global-set-key (kbd "<M-SPC>") 'bm-toggle)
-  (global-set-key (kbd "M-[")   'bm-next)
+  (global-set-key (kbd "M-[") 'bm-next)
   (global-set-key (kbd "M-]") 'bm-previous)
 )
+
+;; p117 goto-chg.el
+;; 最後の変更箇所にカーソル移動
+(when  (require 'goto-chg nil t)
+  (define-key global-map (kbd "<f8>") 'goto-last-change)
+  (define-key global-map (kbd "s-<f8>") 'goto-last-change-reverse))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                     wa                                 ;;
