@@ -151,7 +151,7 @@
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
 ;;(global-linum-mode t)
-;; F9で行番号を表示
+;; F5で行番号を表示
 (global-set-key [f5] 'linum-mode)
 
 
@@ -473,9 +473,12 @@
   ;; (define-key global-map [f5] 'point-undo)
   ;; (define-key global-map [f6] 'point-redo)
   ;; 筆者のお勧めキーバインド
-  (define-key global-map (kbd "M-[") 'point-undo)
-  (define-key global-map (kbd "M-]") 'point-redo)
-  )
+  ;; (define-key global-map (kbd "M-[") 'point-undo)
+  ;; (define-key global-map (kbd "M-]") 'point-redo)
+  ;; rubikichi p115
+  (define-key global-map (kbd "<f7>") 'point-undo)
+  (define-key global-map (kbd "s-<f7>") 'point-redo)
+)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -884,6 +887,73 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; rubikichi p84
+(when (require 'uniquify nil t)
+  ;; filename<dir> 形式のバッファ名にする
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+  ;; *で囲まれたバッファ名は対象外にする
+  (setq uniquify-ignore-buffers-re "*[^*]+*")
+)
+
+;; p87 recentfを拡張する
+;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
+(when  (require 'recentf-ext nil t)
+  (setq recentf-max-saved-items 3000)
+  (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
+  (global-set-key (kbd "C-c r") 'recentf-open-files)
+)
+
+;; p102 dired でファイル名を直接編集
+(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+
+;; for C/Migemo
+;; written by migemo.el
+;; p113 cmigemo
+;; http://www.kaoriya.net/software/cmigemo/
+;; https://github.com/koron/cmigemo
+;; migemo.el
+;; https://gist.github.com/tomoya/457761
+(when (and (executable-find "cmigemo")
+           (require 'migemo nil t))
+  (setq migemo-command "/usr/local/bin/cmigemo")
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (setq migemo-regex-dictionary nil)
+  (load-library "migemo")
+  (migemo-init)
+)
+
+;; p116 bm.el
+;; カーソル位置に印を付ける
+;; http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el
+(when  (require 'bm nil t)
+  ;; マークのセーブ
+  (setq-default bm-buffer-persistence t)
+  ;; セーブファイル名の設定
+  (setq bm-repository-file "~/.emacs.d/bm/.bm-repository")
+  ;; 起動時に設定のロード
+  (setq bm-restore-repository-on-load t)
+  (add-hook 'after-init-hook 'bm-repository-load)
+  (add-hook 'find-file-hooks 'bm-buffer-restore)
+  (add-hook 'after-revert-hook 'bm-buffer-restore)
+  ;; 設定ファイルのセーブ
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'auto-save-hook 'bm-buffer-save)
+  (add-hook 'after-save-hook 'bm-buffer-save)
+  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+  ;; Saving the repository to file when on exit
+  ;; kill-buffer-hook is not called when emacs is killed, so we
+  ;; must save all bookmarks first
+  (add-hook 'kill-emacs-hook '(lambda nil
+								(bm-buffer-save-all)
+								(bm-repository-save)))
+  (global-set-key (kbd "<M-SPC>") 'bm-toggle)
+  (global-set-key (kbd "M-[")   'bm-next)
+  (global-set-key (kbd "M-]") 'bm-previous)
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                     wa                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -960,25 +1030,6 @@
 (setq ange-ftp-default-user "ftp-kviss1")
 (ange-ftp-set-passwd "117.20.102.133" "ftp-kviss1" "zZT6ffcL")
 
-;; for C/Migemo
-;; written by migemo.el
-;; cmigemo
-;; http://www.kaoriya.net/software/cmigemo/
-;; https://github.com/koron/cmigemo
-;; migemo.el
-;; https://gist.github.com/tomoya/457761
-(when (and (executable-find "cmigemo")
-           (require 'migemo nil t))
-  (setq migemo-command "/usr/local/bin/cmigemo")
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  (setq migemo-regex-dictionary nil)
-  (load-library "migemo")
-  (migemo-init)
-)
-
 ;; automatic highlighting current symbol like eclipse IDE.
 ;; https://github.com/emacsmirror/auto-highlight-symbol
 (when (require 'auto-highlight-symbol nil t)
@@ -997,23 +1048,4 @@
 ;; emacs以外のものからファイルが編集された場合もbufferを再読込する
 (global-auto-revert-mode 1)
 
-;; rubikichi p84
-(when (require 'uniquify nil t)
-  ;; filename<dir> 形式のバッファ名にする
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-  ;; *で囲まれたバッファ名は対象外にする
-  (setq uniquify-ignore-buffers-re "*[^*]+*")
-)
 
-;; rubikichi p87
-;; recentfを拡張する
-;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
-(when  (require 'recentf-ext nil t)
-  (setq recentf-max-saved-items 3000)
-  (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
-  (global-set-key (kbd "C-c r") 'recentf-open-files)
-)
-
-;; rubikichi p102
-;; dired でファイル名を直接編集
-(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
