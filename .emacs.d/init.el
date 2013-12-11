@@ -974,6 +974,9 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
+;; p154 正規表現置換
+(defalias 'qrr 'query-replace-regexp)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                     wa                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
