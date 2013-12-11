@@ -1,4 +1,6 @@
-((("wdired-change-to-wdired-mode" .
+((("f2" .
+   [1 0])
+  ("wdired-change-to-wdired-mode" .
    [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("dired-mode-map" .
    [0 0 0 0 0 0 0 0 1 0 0 0 0 0])
