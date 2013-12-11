@@ -900,7 +900,7 @@
 (when  (require 'recentf-ext nil t)
   (setq recentf-max-saved-items 3000)
   (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
-  (global-set-key (kbd "C-c r") 'recentf-open-files)
+  (global-set-key (kbd "C-c f") 'recentf-open-files)
 )
 
 ;; p102 dired でファイル名を直接編集
@@ -960,6 +960,20 @@
   (define-key global-map (kbd "<f8>") 'goto-last-change)
   (define-key global-map (kbd "s-<f8>") 'goto-last-change-reverse))
 
+;; p126 hippie-expand
+;; http://dev.ariel-networks.com/Members/matsuyama/emacs-abbrev/
+(define-key global-map (kbd "C-,") 'hippie-expand)
+(setq hippie-expand-try-functions-list
+      '(try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list try-expand-line
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                     wa                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -969,7 +983,8 @@
 (define-key global-map (kbd "C-h") 'delete-backward-char)
 (define-key global-map (kbd "M-g") 'goto-line)
 (define-key global-map (kbd "C-z") 'line-end-position)
-(global-set-key [f3] 'multi-term)
+(global-set-key [f2] 'multi-term)
+(global-set-key (kbd "C-c r") 'query-replace)
 
 (add-hook 'term-mode-hook
      (lambda ()
@@ -1045,9 +1060,19 @@
 ;; http://www.emacswiki.org/emacs/download/thing-opt.el
 (when (require 'thing-opt nil t)
   (define-thing-commands)
-  (global-set-key (kbd "C-;") 'mark-word*)
+  ;; (global-set-key (kbd "C-;") 'mark-word*)
   (global-set-key (kbd "C-=") 'mark-string)
   ;; (global-set-key (kbd "C-(") 'mark-up-list)
+)
+
+;; expand region
+;; http://d.hatena.ne.jp/syohex/20120117/1326814127
+;; https://github.com/magnars/expand-region.el
+(when (require 'expand-region nil t)
+  (global-set-key (kbd "C-;") 'er/expand-region)
+  ;; リージョンを狭める
+  (global-set-key (kbd "C-M-;") 'er/contract-region)
+  (transient-mark-mode t)
 )
 
 ;; バッファ自動再読み込み
