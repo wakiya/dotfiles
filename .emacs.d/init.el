@@ -887,12 +887,15 @@
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+;; p216 view-mode
+(setq view-read-only t)
 
 ;; rubikichi p78
 ;; 同時押しコマンド
 (when (require 'key-chord nil t)
   (setq key-chord-two-keys-delay 0.04)
   (key-chord-mode 1)
+  ;; p217 view-mode
   (key-chord-define-global "jk" 'view-mode)
 )
 
@@ -912,7 +915,7 @@
 
 ;; p87 recentfを拡張する
 ;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
-(when  (require 'recentf-ext nil t)
+(when (require 'recentf-ext nil t)
   (setq recentf-max-saved-items 3000)
   (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
   (global-set-key (kbd "C-c f") 'recentf-open-files)
@@ -943,7 +946,7 @@
 ;; p116 bm.el
 ;; カーソル位置に印を付ける
 ;; http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el
-(when  (require 'bm nil t)
+(when (require 'bm nil t)
   ;; マークのセーブ
   (setq-default bm-buffer-persistence t)
   ;; セーブファイル名の設定
@@ -971,7 +974,7 @@
 
 ;; p117 goto-chg.el
 ;; 最後の変更箇所にカーソル移動
-(when  (require 'goto-chg nil t)
+(when (require 'goto-chg nil t)
   (define-key global-map (kbd "<f8>") 'goto-last-change)
   (define-key global-map (kbd "s-<f8>") 'goto-last-change-reverse))
 
@@ -991,6 +994,34 @@
 
 ;; p154 正規表現置換
 (defalias 'qrr 'query-replace-regexp)
+
+;; p214 view-mode
+(when (require 'viewer nil t)
+  ;; 書き込み不能ファイルでview-modeから抜けなくなる
+  (viewer-stay-in-setup)
+  ;; view-modeの時に色を変える。書き込み不可=tomato 書き込み可=orange
+  (setq viewer-modeline-color-unwritable "tomato"
+		viewer-modeline-color-view "orange")
+  (viewer-change-modeline-color-setup)
+)
+
+;; p218 define-key view-mode-map
+;; http://d.hatena.ne.jp/syohex/20110114/1294958917
+(when (require 'view nil t)
+  ;; less like
+  (define-key view-mode-map (kbd "N") 'View-search-last-regexp-backward)
+  (define-key view-mode-map (kbd "?") 'View-search-regexp-backward )
+  (define-key view-mode-map (kbd "G") 'View-goto-line-last)
+  (define-key view-mode-map (kbd "b") 'View-scroll-page-backward)
+  (define-key view-mode-map (kbd "f") 'View-scroll-page-forward)
+  ;; vi/w3m like
+  (define-key view-mode-map (kbd "h") 'backward-char)
+  (define-key view-mode-map (kbd "j") 'next-line)
+  (define-key view-mode-map (kbd "k") 'previous-line)
+  (define-key view-mode-map (kbd "l") 'forward-char)
+  (define-key view-mode-map (kbd "J") 'View-scroll-line-forward)
+  (define-key view-mode-map (kbd "K") 'View-scroll-line-backward)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;              rubikitch lisp                            ;;

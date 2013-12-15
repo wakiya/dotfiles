@@ -1,70 +1,72 @@
-((("kbd" .
-   [1 0 0])
-  ("f2" .
+((("ruby-electric-mode" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("bm" .
    [1 0])
-  ("wdired-change-to-wdired-mode" .
-   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("dired-mode-map" .
-   [0 0 0 0 0 0 0 0 1 0 0 0 0 0])
-  ("define-key" .
-   [0 0 0 0 1 0 0 0 0 0])
-  ("buffer-list" .
-   [0 0 0 0 1 0 0 0 0 0 0])
-  ("length" .
-   [0 0 0 0 1 0])
-  ("$json" .
+  ("transient-mark-mode" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("setq" .
+   [1 0 0 0])
+  ("recentf-open-files" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("anything-c-moccur-from-isearch" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("isearch-mode-map" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("multi-term" .
+   [0 0 0 0 0 1 0 0 0 0])
+  ("f3" .
+   [2 0])
+  ("delete-backward-char" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("frame-width" .
+   [0 0 0 0 0 0 0 1 1 0 0])
+  ("scroll-bar-mode" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("-1" .
+   [2 0])
+  ("tool-bar-mode" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("color-theme-simple-1" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0])
+  ("color-theme-comidia" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("color-theme-deep-blue" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("color-theme-dark-blue2" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("color-theme-dark-blue" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("color-theme-arjen" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("nil" .
+   [4 0 0])
+  ("if" .
+   [2 0])
+  ("IF" .
+   [0 1])
+  ("color-theme-hober" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("color-theme-gray30" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("system-uses-terminfo" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("defun" .
    [1 0 0 0 0])
   ("$url" .
    [2 0 0 0])
-  ("defun" .
+  ("$json" .
    [1 0 0 0 0])
-  ("system-uses-terminfo" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
-  ("color-theme-gray30" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-hober" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("IF" .
-   [0 1])
-  ("if" .
-   [2 0])
-  ("nil" .
-   [4 0 0])
-  ("color-theme-arjen" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-dark-blue" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-dark-blue2" .
-   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("color-theme-deep-blue" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
-  ("color-theme-comidia" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("color-theme-simple-1" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0])
-  ("tool-bar-mode" .
-   [0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("-1" .
-   [2 0])
-  ("scroll-bar-mode" .
-   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
-  ("frame-width" .
-   [0 0 0 0 0 0 0 1 1 0 0])
-  ("delete-backward-char" .
-   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
-  ("f3" .
-   [2 0])
-  ("multi-term" .
-   [0 0 0 0 0 1 0 0 0 0])
-  ("isearch-mode-map" .
-   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
-  ("anything-c-moccur-from-isearch" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
-  ("recentf-open-files" .
-   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
-  ("setq" .
-   [1 0 0 0])
-  ("transient-mark-mode" .
-   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
-  ("bm" .
-   [1 0])))
+  ("length" .
+   [0 0 0 0 1 0])
+  ("buffer-list" .
+   [0 0 0 0 1 0 0 0 0 0 0])
+  ("define-key" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("dired-mode-map" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("wdired-change-to-wdired-mode" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("f2" .
+   [1 0])
+  ("kbd" .
+   [1 0 0])))
