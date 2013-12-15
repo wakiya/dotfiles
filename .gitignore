@@ -1,6 +1,8 @@
 .*~
 *~
+/.emacs.d/ac-comphist.dat
 /.emacs.d/auto-save-list/
 /.emacs.d/backups/
-/.emacs.d/undohist/
 /.emacs.d/bm/
+/.emacs.d/tramp
+/.emacs.d/undohist/
