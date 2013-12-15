@@ -298,16 +298,17 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-;; emacs-lisp-mode-hook用の関数を定義
-(defun elisp-mode-hooks ()
-  "lisp-mode-hooks"
-  (when (require 'eldoc nil t)
-    (setq eldoc-idle-delay 0.2)
-    (setq eldoc-echo-area-use-multiline-p t)
-    (turn-on-eldoc-mode)))
+;; rubikichi p231 eldoc-extension.el を使用
+;; ;; emacs-lisp-mode-hook用の関数を定義
+;; (defun elisp-mode-hooks ()
+;;   "lisp-mode-hooks"
+;;   (when (require 'eldoc nil t)
+;;     (setq eldoc-idle-delay 0.2)
+;;     (setq eldoc-echo-area-use-multiline-p t)
+;;     (turn-on-eldoc-mode)))
 
-;; emacs-lisp-modeのフックをセット
-(add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
+;; ;; emacs-lisp-modeのフックをセット
+;; (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -398,8 +399,10 @@
    anything-c-moccur-enable-auto-look-flag t
    ;; 起動時にポイントの位置の単語を初期パターンにする
    anything-c-moccur-enable-initial-pattern t)
-  ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
-  (global-set-key (kbd "M-s") 'anything-c-moccur-occur-by-moccur)
+  ;; M-s だと paredit.el の
+  ;; M-s runs the command paredit-splice-sexp, which is an interactive
+  ;; と干渉する為
+  ;; (global-set-key (kbd "M-s") 'anything-c-moccur-occur-by-moccur)
   (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
   (define-key isearch-mode-map (kbd "C-M-o") 'isearch-occur))
 
@@ -897,6 +900,7 @@
   (key-chord-mode 1)
   ;; p217 view-mode
   (key-chord-define-global "jk" 'view-mode)
+  (key-chord-define-global "df" 'anything-c-moccur-occur-by-moccur)
 )
 
 ;; rubikichi p78
@@ -1021,43 +1025,73 @@
   (define-key view-mode-map (kbd "l") 'forward-char)
   (define-key view-mode-map (kbd "J") 'View-scroll-line-forward)
   (define-key view-mode-map (kbd "K") 'View-scroll-line-backward)
+  (when (require 'bm nil t)
+	(define-key view-mode-map (kbd "m") 'bm-toggle)
+	(define-key view-mode-map (kbd "[") 'bmprevious)
+	(define-key view-mode-map (kbd "]") 'bm-next))
 )
+
+;; emacs lisp
+;; http://www.mag2.com/sample/0001373131
+;; p228 括弧の対応を保持して編集する設定
+;; scan error unbalanced parentheses
+;; M-s runs the command paredit-splice-sexp, which is an interactive
+(when (require 'paredit nil t)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook 'enable-paredit-mode) 
+  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+)
+;; http://www.emacswiki.org/emacs/ParEdit
+;; (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+;; ;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+;; ;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+
+;; p231 関数、変数のヘルプをエコーエリアに表示
+;; http://www.emacswiki.org/emacs/eldoc-extension.el
+;; http://d.hatena.ne.jp/sandai/20120304/p2
+(when (require 'eldoc-extension nil t)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+  (setq eldoc-idle-delay 0.2)
+  (setq eldoc-minor-mode-string ""))
+
+;; p232 find-functionをキー割り当てする
+(find-function-setup-keys)
+
+;; 試行錯誤用ファイルを開くための設定
+(when (require 'open-junk-file nil t)
+  ;; C-x C-zで試行錯誤ファイルを開く
+  (global-set-key (kbd "C-x C-z") 'open-junk-file))
+
+;; p239 式の評価結果を注釈するための設定
+(when (require 'lispxmp nil t)
+  ;; emacs-lisp-modeでC-c C-dを押すと注釈される
+  (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp))
+
+;; p35 自動バイトコンパイル
+(when (require 'auto-async-byte-compile nil t)
+  ;; 自動バイトコンパイルを無効にするファイル名の正規表現
+  (setq auto-async-byte-compile-exclude-files-regexp "/junk/") 
+  (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode))
+
+;; 釣り合いのとれる括弧をハイライトする
+(show-paren-mode 1)
+
+;; 改行と同時にインデントも行う
+(global-set-key "\C-m" 'newline-and-indent)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;              rubikitch lisp                            ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; http://www.mag2.com/sample/0001373131
 
-;;;試行錯誤用ファイルを開くための設定
-;; (require 'open-junk-file) 
-;; ;; C-x C-zで試行錯誤ファイルを開く
-;; (global-set-key (kbd "C-x C-z") 'open-junk-file) 
-;; ;;;式の評価結果を注釈するための設定
-;; (require 'lispxmp) 
-;; ;; emacs-lisp-modeでC-c C-dを押すと注釈される
-;; (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp) 
-;; ;;;括弧の対応を保持して編集する設定
-;; (require 'paredit) 
-;; (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode) 
-;; (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode) 
-;; (add-hook 'lisp-mode-hook 'enable-paredit-mode) 
-;; (add-hook 'ielm-mode-hook 'enable-paredit-mode) 
-;; (require 'auto-async-byte-compile) 
-;; ;;自動バイトコンパイルを無効にするファイル名の正規表現
-;; (setq auto-async-byte-compile-exclude-files-regexp "/junk/") 
-;; (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode) 
-;; (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode) 
-;; (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode) 
-;; (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode) 
-;; (setq eldoc-idle-delay 0.2) ;すぐに表示したい
-;; (setq eldoc-minor-mode-string "") ;モードラインにElDocと表示しない
-;; ;;釣り合いのとれる括弧をハイライトする
-;; (show-paren-mode 1)
-;; ;;改行と同時にインデントも行う
-;; (global-set-key "\C-m" 'newline-and-indent)
-;; ;; find-functionをキー割り当てする
-;; (find-function-setup-keys)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                     wa                                 ;;
