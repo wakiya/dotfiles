@@ -888,6 +888,21 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; rubikichi p78
+;; 同時押しコマンド
+(when (require 'key-chord nil t)
+  (setq key-chord-two-keys-delay 0.04)
+  (key-chord-mode 1)
+  (key-chord-define-global "jk" 'view-mode)
+)
+
+;; rubikichi p78
+;; スペース同時押し
+;; http://d.hatena.ne.jp/rubikitch/20081105/1225856491
+(when (require 'space-chord nil t)
+  (space-chord-define-global "f" 'anything-for-files)
+)
+
 ;; rubikichi p84
 (when (require 'uniquify nil t)
   ;; filename<dir> 形式のバッファ名にする
