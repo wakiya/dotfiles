@@ -903,13 +903,12 @@
   (space-chord-define-global "f" 'anything-for-files)
 )
 
-;; rubikichi p84
-(when (require 'uniquify nil t)
-  ;; filename<dir> 形式のバッファ名にする
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-  ;; *で囲まれたバッファ名は対象外にする
-  (setq uniquify-ignore-buffers-re "*[^*]+*")
-)
+;; rubikichi p79
+;; `raise-minor-mode-map-alist' / `lower-minor-mode-map-alist' - resolve `minor-mode-map-alist' conflict
+;; (when (require 'minor-mode-hack nil t)
+;;   (lower-minor-mode-map-alist 'ruby-electric-mode)
+;;   (raise-minor-mode-map-alist ')
+;; )
 
 ;; p87 recentfを拡張する
 ;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
