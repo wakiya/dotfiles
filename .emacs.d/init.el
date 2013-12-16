@@ -493,6 +493,8 @@
 ;; ElScreenのプレフィックスキーを変更する（初期値はC-z）
 (setq elscreen-prefix-key (kbd "C-t"))
 (when (require 'elscreen nil t)
+  (define-key global-map (kbd "s-]") 'elscreen-next)
+  (define-key global-map (kbd "s-[") 'elscreen-previous)
   ;; C-z C-zをタイプした場合にデフォルトのC-zを利用する
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
