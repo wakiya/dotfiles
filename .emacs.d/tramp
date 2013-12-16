@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <13/12/15 21:52:54 /Users/yoshihirowakiya/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <13/12/17 06:06:26 /Users/yoshihirowakiya/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -18,7 +18,8 @@
   ("id" "/usr/bin/id")
   ("gid-integer" 0)
   ("ls" "/bin/ls --color=never")
-  ("ls-dired" t))
+  ("ls-dired" t)
+  ("~" "/root"))
  (["sshx"
    #("wa" 0 2
 	 (face
@@ -123,7 +124,9 @@
   ("readlink" "\\readlink")
   ("stat" "\\stat")
   ("file-exists" "test -e")
-  ("~" "/home/wa"))
+  ("~" "/home/wa")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 502))
  (["sshx" "wa" "54.250.163.141" nil nil]
   ("uname" "Linux 3.4.48-45.46.amzn1.x86_64")
   ("test" "test")
@@ -137,4 +140,19 @@
   ("readlink" "\\readlink")
   ("stat" "\\stat")
   ("file-exists" "test -e")
-  ("~" "/home/wa")))
+  ("~" "/home/wa"))
+ (["ssh" "root" "175.184.121.222" nil nil]
+  ("uname" "Linux 2.6.18-128.el5")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("busybox" nil)
+  ("readlink" "\\readlink")
+  ("stat" "\\stat")
+  ("file-exists" "test -e")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 0)
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")))
