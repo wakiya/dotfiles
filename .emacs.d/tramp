@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <13/12/17 06:06:26 /Users/yoshihirowakiya/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <13/12/23 18:09:31 /Users/yoshihirowakiya/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -47,7 +47,8 @@
   ("gid-integer" 500)
   ("uid-integer" 503)
   ("ls" "/bin/ls --color=never")
-  ("~" "/home/wa"))
+  ("~" "/home/wa")
+  ("ls-dired" t))
  (["ssh" "wa" "www.yen-joy.net" nil nil]
   ("uname" "Linux 2.6.18-308.8.1.el5")
   ("test" "test")
@@ -155,4 +156,16 @@
   ("gid-integer" 0)
   ("perl-file-spec" t)
   ("perl-cwd-realpath" t)
-  ("perl" "\\perl")))
+  ("perl" "\\perl"))
+ (["sshx" "root" "www.yen-joy.net" nil nil]
+  ("uname" "Linux 2.6.18-308.8.1.el5")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("busybox" nil)
+  ("readlink" "\\readlink")
+  ("stat" "\\stat")
+  ("file-exists" "test -e")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 0)))
