@@ -660,8 +660,9 @@
 
 ;;; P172 ruby-modeのインデントを調整する
 ;; ruby-modeのインデント設定
-(setq ;; ruby-indent-level 3 ; インデント幅を3に。初期値は2
+(setq
       ruby-deep-indent-paren-style nil ; 改行時のインデントを調整する
+	  ;; ruby-indent-level 3 ; インデント幅を3に。初期値は2
       ;; ruby-mode実行時にindent-tabs-modeを設定値に変更
       ;; ruby-indent-tabs-mode t ; タブ文字を使用する。初期値はnil
       ) 
