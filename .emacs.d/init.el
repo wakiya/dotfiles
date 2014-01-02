@@ -586,9 +586,10 @@
 ;;; P166 php-modeのインデントを調整する
 ;; php-modeのインデント設定
 (defun php-indent-hook ()
+  (setq tab-width 4)
   (setq indent-tabs-mode nil)
   (setq c-basic-offset 4)
-  ;; (c-set-offset 'case-label '+) ; switch文のcaseラベル
+  (c-set-offset 'case-label '+) ; switch文のcaseラベル
   (c-set-offset 'arglist-intro '+) ; 配列の最初の要素が改行した場合
   (c-set-offset 'arglist-close 0)) ; 配列の閉じ括弧
 
@@ -1201,4 +1202,36 @@
 ;; emacs以外のものからファイルが編集された場合もbufferを再読込する
 (global-auto-revert-mode 1)
 
+;; マウスホイールでスクロール
+;; http://superm.hatenablog.com/entry/20100908/1283910730
+;; http://www.emacswiki.org/emacs/SmoothScrolling#toc3
+;; (defun scroll-down-with-lines ()
+;;   "" (interactive) (scroll-down 1))
+;; (defun scroll-up-with-lines ()
+;;    "" (interactive) (scroll-up 1))
+;; (global-set-key [mouse-4] 'scroll-down-with-lines)
+;; (global-set-key [mouse-5] 'scroll-up-with-lines)
+
+;; スクロールステップ 2 に設定
+;; scroll one line at a time (less "jumpy" than defaults)
+;; one line at a time
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1)))
+;; don't accelerate scrolling
+(setq mouse-wheel-progressive-speed nil)
+;; scroll window under mouse
+(setq mouse-wheel-follow-mouse 't)
+;; keyboard scroll one line at a time
+;; (setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+
+;; window scroll
+;; http://www.geocities.co.jp/SiliconValley-Bay/9285/ELISP-JA/elisp_425.html
+(defun line-to-top-of-window ()
+  "Scroll current line to top of window.
+Replaces three keystroke sequence C-u 0 C-l."
+  (interactive)
+  (recenter 20))
+
+(global-set-key [f6] 'line-to-top-of-window)
 
