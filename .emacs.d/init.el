@@ -386,6 +386,8 @@
 ;;; P127-128 過去の履歴からペースト──anything-show-kill-ring
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+;; すべてのkillを表示
+(setq anything-kill-ring-threshold 0)
 
 ;; ▼要拡張機能インストール▼
 ;;; P128-129 moccurを利用する──anything-c-moccur
