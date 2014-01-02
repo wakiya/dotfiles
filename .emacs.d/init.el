@@ -387,6 +387,7 @@
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 ;; すべてのkillを表示
+;; http://dev.ariel-networks.com/articles/emacs/part4/
 (setq anything-kill-ring-threshold 0)
 
 ;; ▼要拡張機能インストール▼
