@@ -11,15 +11,17 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
-;;Top,leftの現在位置を確認
-;;(frame-parameters)
+;; Top,leftの現在位置を確認
+;; (frame-parameters)
+;; (frame-width)
+;; (frame-height)
 
 (setq initial-frame-alist
     (append
     '(
      (top                 . 0)    ; フレームの Y 位置(ピクセル数)
 	 (left                . 2560)   ; フレームの X 位置(ピクセル数)
-	 (width               . 270)    ; フレーム幅(文字数)
+	 (width               . 546)    ; フレーム幅(文字数)
 	 (height              . 70))   ; フレーム高(文字数)
        initial-frame-alist))
 
