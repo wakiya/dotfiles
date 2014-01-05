@@ -153,7 +153,7 @@
 ;;; P90 タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
-;;(global-linum-mode t)
+;; (global-linum-mode t)
 ;; F5で行番号を表示
 (global-set-key [f5] 'linum-mode)
 
@@ -915,9 +915,11 @@
 ;; rubikichi p78
 ;; スペース同時押し
 ;; http://d.hatena.ne.jp/rubikitch/20081105/1225856491
-(when (require 'space-chord nil t)
-  (space-chord-define-global "f" 'anything-for-files)
-)
+;; (when (require 'space-chord nil t)
+;;   (setq space-chord-delay 0.04)
+;;   (space-chord-define-global "h" 'anything-for-files)
+;;   (space-chord-define-global "j" 'anything-c-moccur-occur-by-moccur)
+;; )
 
 ;; rubikichi p79
 ;; `raise-minor-mode-map-alist' / `lower-minor-mode-map-alist' - resolve `minor-mode-map-alist' conflict
@@ -1168,6 +1170,8 @@
            (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
            (copy-region-as-kill (point)
                                 (progn (forward-visible-line arg) (point))))))
+  ;; wa 変更予定　末尾の改行削除
+  (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
   (message (substring (car kill-ring-yank-pointer) 0 -1)))
 
 (global-set-key (kbd "M-k") 'copy-whole-line)
