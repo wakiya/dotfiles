@@ -11,8 +11,10 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
-;;Top,leftの現在位置を確認
-;;(frame-parameters)
+;; Top,leftの現在位置を確認
+;; (frame-parameters)
+;; (frame-width)
+;; (frame-height)
 
 (setq initial-frame-alist
     (append
@@ -151,7 +153,7 @@
 ;;; P90 タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
-;;(global-linum-mode t)
+;; (global-linum-mode t)
 ;; F5で行番号を表示
 (global-set-key [f5] 'linum-mode)
 
@@ -386,6 +388,9 @@
 ;;; P127-128 過去の履歴からペースト──anything-show-kill-ring
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+;; すべてのkillを表示
+;; http://dev.ariel-networks.com/articles/emacs/part4/
+(setq anything-kill-ring-threshold 0)
 
 ;; ▼要拡張機能インストール▼
 ;;; P128-129 moccurを利用する──anything-c-moccur
@@ -586,9 +591,10 @@
 ;;; P166 php-modeのインデントを調整する
 ;; php-modeのインデント設定
 (defun php-indent-hook ()
+  (setq tab-width 4)
   (setq indent-tabs-mode nil)
   (setq c-basic-offset 4)
-  ;; (c-set-offset 'case-label '+) ; switch文のcaseラベル
+  (c-set-offset 'case-label '+) ; switch文のcaseラベル
   (c-set-offset 'arglist-intro '+) ; 配列の最初の要素が改行した場合
   (c-set-offset 'arglist-close 0)) ; 配列の閉じ括弧
 
@@ -909,9 +915,11 @@
 ;; rubikichi p78
 ;; スペース同時押し
 ;; http://d.hatena.ne.jp/rubikitch/20081105/1225856491
-(when (require 'space-chord nil t)
-  (space-chord-define-global "f" 'anything-for-files)
-)
+;; (when (require 'space-chord nil t)
+;;   (setq space-chord-delay 0.04)
+;;   (space-chord-define-global "h" 'anything-for-files)
+;;   (space-chord-define-global "j" 'anything-c-moccur-occur-by-moccur)
+;; )
 
 ;; rubikichi p79
 ;; `raise-minor-mode-map-alist' / `lower-minor-mode-map-alist' - resolve `minor-mode-map-alist' conflict
@@ -1162,6 +1170,8 @@
            (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
            (copy-region-as-kill (point)
                                 (progn (forward-visible-line arg) (point))))))
+  ;; wa 変更予定　末尾の改行削除
+  (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
   (message (substring (car kill-ring-yank-pointer) 0 -1)))
 
 (global-set-key (kbd "M-k") 'copy-whole-line)
@@ -1201,4 +1211,35 @@
 ;; emacs以外のものからファイルが編集された場合もbufferを再読込する
 (global-auto-revert-mode 1)
 
+;; マウスホイールでスクロール
+;; http://superm.hatenablog.com/entry/20100908/1283910730
+;; http://www.emacswiki.org/emacs/SmoothScrolling#toc3
+;; (defun scroll-down-with-lines ()
+;;   "" (interactive) (scroll-down 1))
+;; (defun scroll-up-with-lines ()
+;;    "" (interactive) (scroll-up 1))
+;; (global-set-key [mouse-4] 'scroll-down-with-lines)
+;; (global-set-key [mouse-5] 'scroll-up-with-lines)
 
+;; スクロールステップ 2 に設定
+;; scroll one line at a time (less "jumpy" than defaults)
+;; one line at a time
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1)))
+;; don't accelerate scrolling
+(setq mouse-wheel-progressive-speed nil)
+;; scroll window under mouse
+(setq mouse-wheel-follow-mouse 't)
+;; keyboard scroll one line at a time
+;; (setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+
+;; window scroll
+;; http://www.geocities.co.jp/SiliconValley-Bay/9285/ELISP-JA/elisp_425.html
+(defun line-to-top-of-window ()
+  "Scroll current line to top of window.
+Replaces three keystroke sequence C-u 0 C-l."
+  (interactive)
+  (recenter 15))
+
+(global-set-key [f6] 'line-to-top-of-window)
