@@ -1110,7 +1110,10 @@
 
 ;;; キーバインド設定
 (define-key global-map (kbd "s-m") 'follow-delete-other-windows-and-split)
-(define-key global-map (kbd "C-h") 'delete-backward-char)
+;; http://akisute3.hatenablog.com/entry/20120318/1332059326
+;; http://kiyotakagoto.hatenablog.com/entry/2013/02/06/230546
+;; (define-key global-map (kbd "C-h") 'delete-backward-char)
+(keyboard-translate ?\C-h ?\C-?)
 (define-key global-map (kbd "M-g") 'goto-line)
 (define-key global-map (kbd "C-z") 'line-end-position)
 (global-set-key [f2] 'multi-term)
