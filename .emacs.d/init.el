@@ -418,7 +418,7 @@
 ;; ▼要拡張機能インストール▼
 ;;; P130-131 利用可能にする
 (when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories 
+  (add-to-list 'ac-dictionary-directories
     "~/.emacs.d/elisp/ac-dict")
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
   (ac-config-default))
@@ -660,10 +660,6 @@
 
 (add-hook  'cperl-mode-hook 'perl-completion-hook)
 
-;;; P169 コラム　便利なエイリアス
-;; dtwをdelete-trailing-whitespaceのエイリアスにする
-(defalias 'dtw 'delete-trailing-whitespace)
-
 ;;; P172 ruby-modeのインデントを調整する
 ;; ruby-modeのインデント設定
 (setq
@@ -671,7 +667,7 @@
 	  ;; ruby-indent-level 3 ; インデント幅を3に。初期値は2
       ;; ruby-mode実行時にindent-tabs-modeを設定値に変更
       ;; ruby-indent-tabs-mode t ; タブ文字を使用する。初期値はnil
-      ) 
+      )
 
 ;; ▼要拡張機能インストール▼
 ;;; P172-173 Ruby編集用の便利なマイナーモード
@@ -783,7 +779,7 @@
              (cons tramp-file-name-regexp nil))
 
 ;; (setq tramp-default-method "ssh")
-;; (setq tramp-verbose 10) 
+;; (setq tramp-verbose 10)
 ;; (add-to-list 'tramp-remote-path "/usr/bin/id")
 
 
@@ -849,27 +845,36 @@
 ;; C-<f8> でバッファ全体をインデント
 (define-key global-map (kbd "C-<f8>") 'indent-whole-buffer)
 
+;;; P169 コラム　便利なエイリアス
+;; dtwをdelete-trailing-whitespaceのエイリアスにする
+(defalias 'dtw 'delete-trailing-whitespace)
 
-;;; 改行やタブを可視化する whitespace-mode
-;; (setq whitespace-display-mappings
-;;       '((space-mark ?\x3000 [?\□]) ; zenkaku space
-;;         (newline-mark 10 [8629 10]) ; newlne
-;;         (tab-mark 9 [187 9] [92 9]) ; tab » 187
-;;         )
-;;       whitespace-style
-;;       '(spaces
-;;         ;; tabs
-;;         trailing
-;;         newline
-;;         space-mark
-;;         tab-mark
-;;         newline-mark))
-;; ;; whitespace-modeで全角スペース文字を可視化　
-;; (setq whitespace-space-regexp "\\(\x3000+\\)")
-;; ;; whitespace-mode をオン
+;; 行末の空白を削除
+;; http://reiare.net/blog/2010/12/16/emacs-space-tab/
+;; 無駄な行末の空白を削除する(Emacs Advent Calendar jp:2010) - tototoshiの日記
+;; http://d.hatena.ne.jp/tototoshi/20101202/1291289625
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; 改行やタブを可視化する whitespace-mode
+(setq whitespace-display-mappings
+      '((space-mark ?\x3000 [?\□]) ; zenkaku space
+        (newline-mark 10 [8629 10]) ; newlne
+        (tab-mark 9 [187 9] [92 9]) ; tab » 187
+        )
+      whitespace-style
+      '(spaces
+        ;; tabs
+        trailing
+        newline
+        space-mark
+        tab-mark
+        newline-mark))
+;; whitespace-modeで全角スペース文字を可視化　
+(setq whitespace-space-regexp "\\(\x3000+\\)")
+;; whitespace-mode をオン
 ;; (global-whitespace-mode t)
-;; ;; F5 で whitespace-mode をトグル
-;; (define-key global-map (kbd "<f5>") 'global-whitespace-mode)
+;; F5 で whitespace-mode をトグル
+(define-key global-map (kbd "<f8>") 'global-whitespace-mode)
 
 
 ;;; Mac でファイルを開いたときに、新たなフレームを作らない
@@ -1050,7 +1055,7 @@
 (when (require 'paredit nil t)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook 'enable-paredit-mode) 
+  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
 )
 ;; http://www.emacswiki.org/emacs/ParEdit
@@ -1088,7 +1093,7 @@
 ;; p35 自動バイトコンパイル
 (when (require 'auto-async-byte-compile nil t)
   ;; 自動バイトコンパイルを無効にするファイル名の正規表現
-  (setq auto-async-byte-compile-exclude-files-regexp "/junk/") 
+  (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
   (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode))
 
 ;; 釣り合いのとれる括弧をハイライトする
@@ -1247,3 +1252,7 @@ Replaces three keystroke sequence C-u 0 C-l."
 
 (global-set-key [f6] 'line-to-top-of-window)
 
+;; kill-ring に同じ内容の文字列を複数入れない
+;; http://www.fan.gr.jp/~ring/Meadow/meadow.html
+(defadvice kill-new (before ys:no-kill-new-duplicates activate)
+  (setq kill-ring (delete (ad-get-arg 0) kill-ring)))
