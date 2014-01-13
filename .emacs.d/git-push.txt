@@ -1,0 +1,2 @@
+cms server
+https://ywakiya:prosports2010@nikkanpro.backlog.jp/git/KEX/NPR-ADMIN.git

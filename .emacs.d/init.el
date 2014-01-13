@@ -1121,6 +1121,8 @@
 (keyboard-translate ?\C-h ?\C-?)
 (define-key global-map (kbd "M-g") 'goto-line)
 (define-key global-map (kbd "C-z") 'line-end-position)
+;; http://www.fan.gr.jp/~ring/Meadow/meadow.html#scroll-down
+;; (global-set-key "\C-z" 'scroll-down)
 (global-set-key [f2] 'multi-term)
 (global-set-key (kbd "C-c r") 'query-replace)
 
@@ -1256,3 +1258,24 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; http://www.fan.gr.jp/~ring/Meadow/meadow.html
 (defadvice kill-new (before ys:no-kill-new-duplicates activate)
   (setq kill-ring (delete (ad-get-arg 0) kill-ring)))
+
+;; ssh-ageng
+;; load-path 設定
+(setq load-path
+      (cons
+       (expand-file-name "~/projects/dotfiles/.emacs.d/elisp/ssh-agent") load-path))
+;; ライブラリ読み込み
+(cond ((locate-library "ssh-agent") (load-library "ssh-agent")))
+
+;; ;; 行頭に移動
+;; (beginning-of-line)
+;; ;; 行頭に移動 (goto-char)
+;; (goto-char (line-beginning-position))
+;; ;; 行末に移動
+;; (end-of-line)
+;; ;; 行末に移動 (goto-char)
+;; (goto-char (line-end-position))
+
+;; (defun move-to-beginning-of-line (&optional arg)
+;;   (goto-char (line-beginning-position)))
+;; (global-set-key (kbd "C-c a") 'move-to-beginning-of-line)
