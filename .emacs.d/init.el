@@ -1279,3 +1279,28 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; (defun move-to-beginning-of-line (&optional arg)
 ;;   (goto-char (line-beginning-position)))
 ;; (global-set-key (kbd "C-c a") 'move-to-beginning-of-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C# support
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; http://d.hatena.ne.jp/InoHiro/20100609/1276061924
+;; http://www.emacswiki.org/emacs/CSharpMode
+;; http://www.emacswiki.org/emacs/csharp-mode.el
+
+(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
+(setq auto-mode-alist (cons '("\\.cs$" . csharp-mode) auto-mode-alist))
+
+;; Patterns for finding Microsoft C# compiler error messages:
+(require 'compile)
+(push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): error" 1 2 3 2) compilation-error-regexp-alist)
+(push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): warning" 1 2 3 1) compilation-error-regexp-alist)
+
+;; Patterns for defining blocks to hide/show:
+(push '(csharp-mode
+        "\\(^\\s *#\\s *region\\b\\)\\|{"
+        "\\(^\\s *#\\s *endregion\\b\\)\\|}"
+        "/[*/]"
+        nil
+        hs-c-like-adjust-block-beginning)
+      hs-special-modes-alist)
