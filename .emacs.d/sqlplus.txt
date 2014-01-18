@@ -1,0 +1,9 @@
+192.168.1.173:1521/orcl
+SET LINESIZE 1000
+SET PAGESIZE 60
+SET NUMWIDTH 8
+
+sqlplus AKA/AKA@//192.168.1.173:1521/orcl
+env DYLD_FALLBACK_LIBRARY_PATH=$PWD ./sqlplus AKA/AKA@//192.168.1.173:1521/orcl
+
+select * from cm_sensyu where sensyu_no = '11778';
