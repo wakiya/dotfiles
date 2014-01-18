@@ -8,6 +8,14 @@ case ${UID} in
     ;;
 esac
 
+# sqlplus
+export ORACLE_HOME=~/local/oracle/instantclient_10_2
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
+export SQL_PATH=$ORACLE_HOME
+export ORACLE_SID=orcl
+export PATH=$PATH:$ORACLE_HOME
+export NLS_LANG=Japanese_Japan.AL32UTF8
+
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
@@ -36,7 +44,7 @@ PROMPT="%{${fg[red]}%}[%n@%m]%{${reset_color}%} %~
 #     PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
 #     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
 #     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-#     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+#     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
 #         PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
 #     ;;
 # esac

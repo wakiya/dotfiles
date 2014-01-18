@@ -1,0 +1,58 @@
+drwxr-xr-x  24 yoshihirowakiya  staff       816  1 17 00:45 .
+drwxr-xr-x   4 yoshihirowakiya  staff       136  1 17 01:22 ..
+-rw-r--r--@  1 yoshihirowakiya  staff       288  4  1  2009 BASIC_LITE_README
+-rw-r--r--@  1 yoshihirowakiya  staff       278  4  1  2009 BASIC_README
+-rw-r--r--@  1 yoshihirowakiya  staff       276  4  1  2009 JDBC_README
+-rw-r--r--@  1 yoshihirowakiya  staff       282  4  1  2009 SQLPLUS_README
+-r--r--r--@  1 yoshihirowakiya  staff   1609607  2  3  2008 classes12.jar
+-rwxr-xr-x@  1 yoshihirowakiya  staff     30556  4  1  2009 genezi
+-r-xr-xr-x@  1 yoshihirowakiya  staff      1525  8 30  2004 glogin.sql
+-rwxr-xr-x@  1 yoshihirowakiya  staff  21537536  4  1  2009 libclntsh.dylib.10.1
+-rwxr-xr-x@  1 yoshihirowakiya  staff     31788  3 25  2009 libheteroxa10.dylib
+-rwxr-xr-x@  1 yoshihirowakiya  staff     31788  3 25  2009 libheteroxa10.jnilib
+-rwxr-xr-x@  1 yoshihirowakiya  staff   1683924  2 12  2009 libnnz10.dylib
+-rwxr-xr-x@  1 yoshihirowakiya  staff   1142284  2 12  2009 libocci.dylib.10.1
+-rwxr-xr-x@  1 yoshihirowakiya  staff  72626824  4  1  2009 libociei.dylib
+-rwxr-xr-x@  1 yoshihirowakiya  staff   4309656  4  1  2009 libociicus.dylib
+-rwxr-xr-x@  1 yoshihirowakiya  staff    106184  3 25  2009 libocijdbc10.dylib
+-rwxr-xr-x@  1 yoshihirowakiya  staff    106184  3 25  2009 libocijdbc10.jnilib
+-rwxr-xr-x@  1 yoshihirowakiya  staff    933744  3 25  2009 libsqlplus.dylib
+-rwxr-xr-x@  1 yoshihirowakiya  staff   1442316  2 12  2009 libsqlplusic.dylib
+-r--r--r--@  1 yoshihirowakiya  staff   1555682  2  3  2008 ojdbc14.jar
+-r--r--r--@  1 yoshihirowakiya  staff   1646178  1 23  2008 orai18n.jar
+drwxr-xr-x   7 yoshihirowakiya  staff       238  4  1  2009 sdk
+-rwxr-xr-x@  1 yoshihirowakiya  staff     12612  1 17 01:32 sqlplus
+
+reference
+http://gm7add9.wordpress.com/2013/11/26/oracle-instant-client%E3%81%AEsqlplus%E3%82%92mac%E3%81%A7%E4%BD%BF%E3%81%86/
+
+install_name_tool -change /ade/b/2649109290/oracle/sqlplus/lib/libsqlplus.dylib @executable_path/libsqlplus.dylib sqlplus
+install_name_tool -change /ade/b/2649109290/oracle/rdbms/lib/libclntsh.dylib.11.1 @executable_path/libclntsh.dylib.11.1 sqlplus
+install_name_tool -change /ade/b/2649109290/oracle/ldap/lib/libnnz11.dylib @executable_path/libnnz11.dylib sqlplus
+install_name_tool -change /ade/b/1891624078/oracle/sqlplus/lib/libsqlplus.dylib @executable_path/libsqlplus.dylib sqlplus
+
+install_name_tool -change /ade/b/2649109290/oracle/rdbms/lib/libclntsh.dylib.11.1 @loader_path/libclntsh.dylib.11.1 libsqlplus.dylib
+install_name_tool -change /ade/b/2649109290/oracle/ldap/lib/libnnz11.dylib @loader_path/libnnz11.dylib libsqlplus.dylib
+install_name_tool -change /ade/b/2649109290/oracle/ldap/lib/libnnz11.dylib @loader_path/libnnz11.dylib libclntsh.dylib.11.1
+install_name_tool -change /ade/b/2649109290/oracle/rdbms/lib/libclntsh.dylib.11.1 @loader_path/libclntsh.dylib.11.1 libsqlplusic.dylib
+install_name_tool -change /ade/b/2649109290/oracle/ldap/lib/libnnz11.dylib @loader_path/libnnz11.dylib libsqlplusic.dylib
+install_name_tool -change /ade/b/2649109290/oracle/rdbms/lib/libclntsh.dylib.11.1 @loader_path/libclntsh.dylib.11.1 libociei.dylib
+
+dyld: Library not loaded: /b/32_216/network/lib/libnnz10.dylib
+  Referenced from: /Users/yoshihirowakiya/local/oracle/instantclient_10_2/libsqlplus.dylib
+  Reason: image not found
+
+
+change
+----------------------------------------------------------------------------------------------------
+
+install_name_tool -change /b/32_216/sqlplus/lib/libsqlplus.dylib @executable_path/libsqlplus.dylib sqlplus
+install_name_tool -change /b/32_216/rdbms/lib/libclntsh.dylib.10.1 @executable_path/libclntsh.dylib.10.1 sqlplus
+install_name_tool -change /b/32_216/network/lib/libnnz10.dylib @executable_path/libnnz10.dylib sqlplus
+
+install_name_tool -change /b/32_216/rdbms/lib/libclntsh.dylib.10.1 @loader_path/libclntsh.dylib.10.1 libsqlplus.dylib
+install_name_tool -change /b/32_216/network/lib/libnnz10.dylib @loader_path/libnnz10.dylib libsqlplus.dylib
+
+----------------------------------------------------------------------------------------------------
+
+echo "setenv ORACLE_HOME /Users/yoshihirowakiya/local/oracle/instantclient_10_2" > ~/.launchd.conf
