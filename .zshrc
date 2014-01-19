@@ -9,9 +9,9 @@ case ${UID} in
 esac
 
 # sqlplus
-export ORACLE_HOME=~/local/oracle/instantclient_10_2
+export ORACLE_HOME=~/projects/dotfiles/.emacs.d/oracle/instantclient_10_2
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
-export SQL_PATH=$ORACLE_HOME
+export SQLPATH=$ORACLE_HOME/aka/sql
 export ORACLE_SID=orcl
 export PATH=$PATH:$ORACLE_HOME
 export NLS_LANG=Japanese_Japan.AL32UTF8
