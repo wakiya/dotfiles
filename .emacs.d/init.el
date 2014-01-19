@@ -1200,12 +1200,12 @@
 
 ;; http://dev.ariel-networks.com/articles/emacs/part5/
 ;; http://www.emacswiki.org/emacs/download/thing-opt.el
-(when (require 'thing-opt nil t)
-  (define-thing-commands)
-  ;; (global-set-key (kbd "C-;") 'mark-word*)
-  (global-set-key (kbd "C-=") 'mark-string)
-  ;; (global-set-key (kbd "C-(") 'mark-up-list)
-)
+;; (when (require 'thing-opt nil t)
+;;   (define-thing-commands)
+;;   ;; (global-set-key (kbd "C-;") 'mark-word*)
+;;   (global-set-key (kbd "C-=") 'mark-string)
+;;   ;; (global-set-key (kbd "C-(") 'mark-up-list)
+;; )
 
 ;; expand region
 ;; http://d.hatena.ne.jp/syohex/20120117/1326814127
