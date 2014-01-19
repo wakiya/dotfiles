@@ -1316,9 +1316,9 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; (setenv "PATH" (concat (getenv "ORACLE_HOME") "/bin:" (getenv "PATH")))
 ;; (setq sql-oracle-program (concat (getenv "ORACLE_HOME") "/bin/" "sqlplus"))
 ;; ********************************************************************************
-(setenv "ORACLE_HOME" "/Users/yoshihirowakiya/local/oracle/instantclient_10_2")
+(setenv "ORACLE_HOME" "/Users/yoshihirowakiya/projects/dotfiles/.emacs.d/oracle/instantclient_10_2")
 (setq sql-oracle-program (concat (getenv "ORACLE_HOME") "/" "sqlplus"))
 (setenv "DYLD_LIBRARY_PATH" (concat (getenv "DYLD_LIBRARY_PATH") ":" (getenv "ORACLE_HOME")))
-(setenv "SQL_PATH" (getenv "ORACLE_HOME"))
+(setenv "SQLPATH" (concat (getenv "ORACLE_HOME") "/aka/sql"))
 (setenv "PATH" (concat (getenv "PATH") ":" (getenv "ORACLE_HOME")))
 (setenv "NLS_LANG" "Japanese_Japan.AL32UTF8")
