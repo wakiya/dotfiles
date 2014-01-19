@@ -1181,8 +1181,10 @@
            (copy-region-as-kill (point)
                                 (progn (forward-visible-line arg) (point))))))
   ;; wa 変更予定　末尾の改行削除
-  (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
-  (message (substring (car kill-ring-yank-pointer) 0 -1)))
+  ;; (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
+  ;; (message (substring (car kill-ring-yank-pointer) 0 -1))
+  (kill-new (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil)
+  (message (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil))
 
 (global-set-key (kbd "M-k") 'copy-whole-line)
 (global-set-key (kbd "M-K") 'kill-whole-line)
