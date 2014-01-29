@@ -1279,4 +1279,3 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; (defun move-to-beginning-of-line (&optional arg)
 ;;   (goto-char (line-beginning-position)))
 ;; (global-set-key (kbd "C-c a") 'move-to-beginning-of-line)
-
