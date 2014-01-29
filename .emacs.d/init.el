@@ -1144,6 +1144,8 @@
             (term-send-raw-string "hbsb-en")))
         ))
 
+;; 小文字
+(put 'downcase-region 'disabled nil)
 
 ;; custom-theme
 ;; https://github.com/neomantic/Emacs-Sunburst-Color-Theme
