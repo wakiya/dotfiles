@@ -1144,6 +1144,8 @@
             (term-send-raw-string "hbsb-en")))
         ))
 
+;; 小文字
+(put 'downcase-region 'disabled nil)
 
 ;; custom-theme
 ;; https://github.com/neomantic/Emacs-Sunburst-Color-Theme
@@ -1181,8 +1183,10 @@
            (copy-region-as-kill (point)
                                 (progn (forward-visible-line arg) (point))))))
   ;; wa 変更予定　末尾の改行削除
-  (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
-  (message (substring (car kill-ring-yank-pointer) 0 -1)))
+  ;; (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
+  ;; (message (substring (car kill-ring-yank-pointer) 0 -1))
+  (kill-new (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil)
+  (message (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil))
 
 (global-set-key (kbd "M-k") 'copy-whole-line)
 (global-set-key (kbd "M-K") 'kill-whole-line)
@@ -1200,12 +1204,12 @@
 
 ;; http://dev.ariel-networks.com/articles/emacs/part5/
 ;; http://www.emacswiki.org/emacs/download/thing-opt.el
-(when (require 'thing-opt nil t)
-  (define-thing-commands)
-  ;; (global-set-key (kbd "C-;") 'mark-word*)
-  (global-set-key (kbd "C-=") 'mark-string)
-  ;; (global-set-key (kbd "C-(") 'mark-up-list)
-)
+;; (when (require 'thing-opt nil t)
+;;   (define-thing-commands)
+;;   ;; (global-set-key (kbd "C-;") 'mark-word*)
+;;   (global-set-key (kbd "C-=") 'mark-string)
+;;   ;; (global-set-key (kbd "C-(") 'mark-up-list)
+;; )
 
 ;; expand region
 ;; http://d.hatena.ne.jp/syohex/20120117/1326814127
@@ -1279,3 +1283,46 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; (defun move-to-beginning-of-line (&optional arg)
 ;;   (goto-char (line-beginning-position)))
 ;; (global-set-key (kbd "C-c a") 'move-to-beginning-of-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C# support
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; http://d.hatena.ne.jp/InoHiro/20100609/1276061924
+;; http://www.emacswiki.org/emacs/CSharpMode
+;; http://www.emacswiki.org/emacs/csharp-mode.el
+
+;; (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
+(when (require 'csharp-mode nil t)
+  (setq auto-mode-alist (cons '("\\.cs$" . csharp-mode) auto-mode-alist))
+
+  ;; Patterns for finding Microsoft C# compiler error messages:
+  (require 'compile)
+  (push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): error" 1 2 3 2) compilation-error-regexp-alist)
+  (push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): warning" 1 2 3 1) compilation-error-regexp-alist)
+
+  ;; Patterns for defining blocks to hide/show:
+  (push '(csharp-mode
+		  "\\(^\\s *#\\s *region\\b\\)\\|{"
+		  "\\(^\\s *#\\s *endregion\\b\\)\\|}"
+		  "/[*/]"
+		  nil
+		  hs-c-like-adjust-block-beginning)
+		hs-special-modes-alist)
+  (put 'upcase-region 'disabled nil)
+)
+
+;; SQL*Plus
+;; https://github.com/lmanolov/personal-emacs-lisp/blob/master/init.el
+;; ********************************************************************************
+;; ORACLE
+;; (setenv "ORACLE_HOME" "/usr/lib/oracle/xe/app/oracle/product/10.2.0/server")
+;; (setenv "PATH" (concat (getenv "ORACLE_HOME") "/bin:" (getenv "PATH")))
+;; (setq sql-oracle-program (concat (getenv "ORACLE_HOME") "/bin/" "sqlplus"))
+;; ********************************************************************************
+(setenv "ORACLE_HOME" "/Users/yoshihirowakiya/projects/dotfiles/.emacs.d/oracle/instantclient_10_2")
+(setq sql-oracle-program (concat (getenv "ORACLE_HOME") "/" "sqlplus"))
+(setenv "DYLD_LIBRARY_PATH" (concat (getenv "DYLD_LIBRARY_PATH") ":" (getenv "ORACLE_HOME")))
+(setenv "SQLPATH" (concat (getenv "ORACLE_HOME") "/aka/sql"))
+(setenv "PATH" (concat (getenv "PATH") ":" (getenv "ORACLE_HOME")))
+(setenv "NLS_LANG" "Japanese_Japan.AL32UTF8")
