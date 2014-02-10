@@ -37,6 +37,8 @@
 
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
+(define-abbrev-table 'inferior-emacs-lisp-mode-abbrev-table '())
+
 (define-abbrev-table 'internal-ange-ftp-mode-abbrev-table '())
 
 (define-abbrev-table 'java-mode-abbrev-table
@@ -55,7 +57,47 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'php-mode-abbrev-table '())
+(define-abbrev-table 'php-mode-abbrev-table
+  '(
+    ("a" "->" nil 1)
+    ("for" "for ($i = 0; $i < $cnt; $i++) {
+
+}" nil 0)
+    ("fore" "foreach ($ar as $k => $v) {
+
+}" nil 0)
+    ("if" "if () {
+
+}" nil 0)
+    ("ife" "if () {
+
+} else {
+
+}" nil 0)
+    ("ifes" "if () {
+
+} elseif () {
+
+}" nil 0)
+    ("ifese" "if () {
+
+} elseif () {
+
+} else {
+
+}" nil 0)
+    ("r" "return;" nil 1)
+    ("sw" "switch ($ppp) {
+    case '0':
+        ;
+        break;
+    case '1':
+        ;
+        break;
+    default:
+       ;
+}" nil 0)
+   ))
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
@@ -64,6 +106,10 @@
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
+
+(define-abbrev-table 'reb-lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'reb-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
@@ -75,23 +121,30 @@
 
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
-    ("a" "AND" nil 1)
-    ("as" "AS" nil 0)
-    ("cr" "CREATE" nil 0)
-    ("d" "DISTINCT" nil 0)
-    ("del" "DELETE" nil 0)
-    ("f" "FROM" nil 0)
-    ("func" "FUNCTION" nil 0)
-    ("g" "GROUP BY" nil 0)
-    ("ha" "HAVING" nil 0)
-    ("i" "INSERT" nil 0)
-    ("ins" "INSERT" nil 0)
-    ("o" "ORDER BY" nil 0)
-    ("proc" "PROCEDURE" nil 0)
-    ("s" "SELECT" nil 1)
-    ("u" "UPDATE" nil 0)
-    ("upd" "UPDATE" nil 0)
-    ("w" "WHERE" nil 0)
+    ("a" "AND " nil 1)
+    ("as" "AS " nil 1)
+    ("cr" "CREATE " nil 0)
+    ("d" "DISTINCT " nil 0)
+    ("del" "DELETE " nil 0)
+    ("f" "FROM " nil 1)
+    ("func" "FUNCTION " nil 0)
+    ("g" "GROUP BY " nil 0)
+    ("ha" "HAVING " nil 0)
+    ("i" "INSERT " nil 0)
+    ("in" "INNER JOIN ON " nil 0)
+    ("ins" "INSERT " nil 0)
+    ("isno" "IS NOT NULL " nil 0)
+    ("isnu" "IS NULL " nil 0)
+    ("l" "LEFT JOIN ON " nil 0)
+    ("lim" "LIMIT 0 " nil 0)
+    ("o" "ORDER BY " nil 0)
+    ("proc" "PROCEDURE " nil 0)
+    ("s" "SELECT " nil 3)
+    ("sf" "SELECT *
+FROM " nil 2)
+    ("u" "UPDATE " nil 0)
+    ("upd" "UPDATE " nil 0)
+    ("w" "WHERE " nil 1)
    ))
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
