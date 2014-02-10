@@ -37,6 +37,8 @@
 
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
+(define-abbrev-table 'inferior-emacs-lisp-mode-abbrev-table '())
+
 (define-abbrev-table 'internal-ange-ftp-mode-abbrev-table '())
 
 (define-abbrev-table 'java-mode-abbrev-table
@@ -120,11 +122,11 @@
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
     ("a" "AND " nil 1)
-    ("as" "AS " nil 0)
+    ("as" "AS " nil 1)
     ("cr" "CREATE " nil 0)
     ("d" "DISTINCT " nil 0)
     ("del" "DELETE " nil 0)
-    ("f" "FROM " nil 0)
+    ("f" "FROM " nil 1)
     ("func" "FUNCTION " nil 0)
     ("g" "GROUP BY " nil 0)
     ("ha" "HAVING " nil 0)
@@ -137,12 +139,12 @@
     ("lim" "LIMIT 0 " nil 0)
     ("o" "ORDER BY " nil 0)
     ("proc" "PROCEDURE " nil 0)
-    ("s" "SELECT " nil 2)
+    ("s" "SELECT " nil 3)
     ("sf" "SELECT *
 FROM " nil 2)
     ("u" "UPDATE " nil 0)
     ("upd" "UPDATE " nil 0)
-    ("w" "WHERE " nil 0)
+    ("w" "WHERE " nil 1)
    ))
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
