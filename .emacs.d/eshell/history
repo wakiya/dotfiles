@@ -1,0 +1,11 @@
+ssh cms
+ssh kd
+ssh 103
+ssh api
+ssh yen-root
+ssh yen-wa
+ssh dotnet-root
+ssh dotnet-wa
+ssh nifty-api-root
+ssh nifty-api-wa
+exit
