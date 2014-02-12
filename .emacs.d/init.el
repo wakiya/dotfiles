@@ -776,7 +776,10 @@
 ;;; P225 バックアップファイルを作成しない
 ;; TRAMPでバックアップファイルを作成しない
 (add-to-list 'backup-directory-alist
-             (cons tramp-file-name-regexp nil))
+                  (cons tramp-file-name-regexp nil))
+
+;; http://stackoverflow.com/questions/13794433/how-to-disable-autosave-for-tramp-buffers-in-emacs
+(setq tramp-auto-save-directory "/tmp")
 
 ;; (setq tramp-default-method "ssh")
 ;; (setq tramp-verbose 10)
