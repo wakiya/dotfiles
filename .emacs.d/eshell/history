@@ -1,0 +1,10 @@
+cd projects/dotfiles/
+git status
+ssh wa@api
+ssh wa@cms
+eshell 2
+exit
+ssh wa@cms
+exit
+exit
+ls -la
