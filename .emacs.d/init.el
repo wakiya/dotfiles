@@ -1291,29 +1291,44 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; C# support
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Dired の g (revert-buffer)で symbol's value as variable is void となる為コメントアウト
+;; https://code.google.com/p/csharpmode/issues/detail?id=8
+;; http://kurokawh.blogspot.jp/2013/04/emacs-csharp-moderevert-buffer.html
+;; 上記により
+;; line 2656.
+;; (let ((is-flymake-enabled
+;;      (and (fboundp 'flymake-mode)
+;;      	  flymake-mode)))
+;; I replaced `fboundp' with `boundp' and this fixed it for me.
+;; fboundp を boundp に置き換えて byte-compile すると
+;; In toplevel form:
+;; csharp-mode.el:2028:1:Error: Symbol's value as variable is void: csharp-enum-decl-re
+;; となって elc が作れないので断念
+
 ;; http://d.hatena.ne.jp/InoHiro/20100609/1276061924
 ;; http://www.emacswiki.org/emacs/CSharpMode
 ;; http://www.emacswiki.org/emacs/csharp-mode.el
 
 ;; (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
-(when (require 'csharp-mode nil t)
-  (setq auto-mode-alist (cons '("\\.cs$" . csharp-mode) auto-mode-alist))
 
-  ;; Patterns for finding Microsoft C# compiler error messages:
-  (require 'compile)
-  (push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): error" 1 2 3 2) compilation-error-regexp-alist)
-  (push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): warning" 1 2 3 1) compilation-error-regexp-alist)
+;; (when (require 'csharp-mode nil t)
+;;   (setq auto-mode-alist (cons '("\\.cs$" . csharp-mode) auto-mode-alist))
 
-  ;; Patterns for defining blocks to hide/show:
-  (push '(csharp-mode
-		  "\\(^\\s *#\\s *region\\b\\)\\|{"
-		  "\\(^\\s *#\\s *endregion\\b\\)\\|}"
-		  "/[*/]"
-		  nil
-		  hs-c-like-adjust-block-beginning)
-		hs-special-modes-alist)
-  (put 'upcase-region 'disabled nil)
-)
+;;   ;; Patterns for finding Microsoft C# compiler error messages:
+;;   (require 'compile)
+;;   (push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): error" 1 2 3 2) compilation-error-regexp-alist)
+;;   (push '("^\\(.*\\)(\\([0-9]+\\),\\([0-9]+\\)): warning" 1 2 3 1) compilation-error-regexp-alist)
+
+;;   ;; Patterns for defining blocks to hide/show:
+;;   (push '(csharp-mode
+;; 		  "\\(^\\s *#\\s *region\\b\\)\\|{"
+;; 		  "\\(^\\s *#\\s *endregion\\b\\)\\|}"
+;; 		  "/[*/]"
+;; 		  nil
+;; 		  hs-c-like-adjust-block-beginning)
+;; 		hs-special-modes-alist)
+;;   (put 'upcase-region 'disabled nil)
+;; )
 
 ;; SQL*Plus
 ;; https://github.com/lmanolov/personal-emacs-lisp/blob/master/init.el
