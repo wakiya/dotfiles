@@ -11,6 +11,13 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+;; Against Marverics funny font
+;; http://tcnksm.sakura.ne.jp/blog/2012/04/02/emacs/
+;; http://www.color-sample.com/colors/98bc98/
+(set-fontset-font
+ nil 'japanese-jisx0208
+(font-spec :family "Hiragino Mincho Pro"))
+
 ;; Top,leftの現在位置を確認
 ;; (frame-parameters)
 ;; (frame-width)
