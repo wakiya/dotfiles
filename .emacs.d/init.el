@@ -1135,9 +1135,18 @@
 (global-set-key [f2] 'multi-term)
 (global-set-key (kbd "C-c r") 'query-replace)
 
+;; (defun kill-line-without-kill-ring ()
+;;   (delete-region (point) (line-end-position)))
+;; (defun kill-line-without-kill-ring ()
+;;   "Deletes a line, but does not put it in the kill-ring. (kinda)"
+;;   (interactive)
+;;   (move-beginning-of-line 1)
+;;   (kill-line 1)
+;;   (setq kill-ring (cdr kill-ring)))
+;; (global-set-key (kbd "C-c C-k") 'kill-line-without-kill-ring)
+
 (add-hook 'term-mode-hook
      (lambda ()
-	   ;; multi-term でコマンド履歴を遡れるようにする
 	   ;; 合わせて .zshrc に以下を記述
 	   ;; bindkey "hbsb-ep" history-beginning-search-backward-end
 	   ;; bindkey "hbsb-en" history-beginning-search-forward-end
@@ -1274,11 +1283,11 @@ Replaces three keystroke sequence C-u 0 C-l."
 
 ;; ssh-ageng
 ;; load-path 設定
-(setq load-path
-      (cons
-       (expand-file-name "~/projects/dotfiles/.emacs.d/elisp/ssh-agent") load-path))
-;; ライブラリ読み込み
-(cond ((locate-library "ssh-agent") (load-library "ssh-agent")))
+;; (setq load-path
+;;       (cons
+;;        (expand-file-name "~/projects/dotfiles/.emacs.d/elisp/ssh-agent") load-path))
+;; ;; ライブラリ読み込み
+;; (cond ((locate-library "ssh-agent") (load-library "ssh-agent")))
 
 ;; ;; 行頭に移動
 ;; (beginning-of-line)
