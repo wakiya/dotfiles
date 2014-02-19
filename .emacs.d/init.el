@@ -1268,11 +1268,11 @@ Replaces three keystroke sequence C-u 0 C-l."
 
 ;; ssh-ageng
 ;; load-path 設定
-(setq load-path
-      (cons
-       (expand-file-name "~/projects/dotfiles/.emacs.d/elisp/ssh-agent") load-path))
-;; ライブラリ読み込み
-(cond ((locate-library "ssh-agent") (load-library "ssh-agent")))
+;; (setq load-path
+;;       (cons
+;;        (expand-file-name "~/projects/dotfiles/.emacs.d/elisp/ssh-agent") load-path))
+;; ;; ライブラリ読み込み
+;; (cond ((locate-library "ssh-agent") (load-library "ssh-agent")))
 
 ;; ;; 行頭に移動
 ;; (beginning-of-line)
