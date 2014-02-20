@@ -1,0 +1,3 @@
+
+指定以外のファイルを削除
+ls | grep -v -G '27.krn$' | xargs rm
