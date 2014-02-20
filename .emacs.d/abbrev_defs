@@ -33,9 +33,7 @@
 
 (define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
 
-(define-abbrev-table 'csharp-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'csharp-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
@@ -75,8 +73,8 @@
 
 (define-abbrev-table 'php-mode-abbrev-table
   '(
-    ("al" "->" nil 1)
     ("ar" "array(''=>'',)" nil 1)
+    ("emp" "empty();" nil 0)
     ("for" "for ($i = 0; $i < $cnt; $i++) {
 
 }" nil 0)
@@ -103,6 +101,7 @@
 } else {
 
 }" nil 0)
+    ("pr" "print_r();" nil 0)
     ("ret" "return;" nil 7)
     ("sw" "switch ($ppp) {
     case '0':
