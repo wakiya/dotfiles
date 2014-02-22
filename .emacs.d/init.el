@@ -269,23 +269,23 @@
 ;; 5.8 バックアップとオートセーブ                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; P102-103 バックアップとオートセーブの設定
-;; バックアップファイルを作成しない
-;; (setq make-backup-files nil) ; 初期値はt
-;; オートセーブファイルを作らない
-;; (setq auto-save-default nil) ; 初期値はt
+;; バックアップファイルを作成しない 初期値はt
+(setq make-backup-files nil)
+;; オートセーブファイルを作らない 初期値はt
+(setq auto-save-default nil)
 
 ;; バックアップファイルの作成場所をシステムのTempディレクトリに変更する
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+;; (setq backup-directory-alist
+;;       `((".*" . ,temporary-file-directory)))
 ;; オートセーブファイルの作成場所をシステムのTempディレクトリに変更する
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,temporary-file-directory t)))
 
 ;; バックアップとオートセーブファイルを~/.emacs.d/backups/へ集める
-(add-to-list 'backup-directory-alist
-             (cons "." "~/.emacs.d/backups/"))
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
+;; (add-to-list 'backup-directory-alist
+;;              (cons "." "~/.emacs.d/backups/"))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
 
 ;; オートセーブファイル作成までの秒間隔
 ;; (setq auto-save-timeout 15)
@@ -779,7 +779,7 @@
                   (cons tramp-file-name-regexp nil))
 
 ;; http://stackoverflow.com/questions/13794433/how-to-disable-autosave-for-tramp-buffers-in-emacs
-(setq tramp-auto-save-directory "/tmp")
+;; (setq tramp-auto-save-directory "/tmp")
 
 ;; (setq tramp-default-method "ssh")
 ;; (setq tramp-verbose 10)
@@ -1167,41 +1167,45 @@
 
 ;; 行コピー
 ;; http://akisute3.hatenablog.com/entry/20120412/1334237294
-(defun copy-whole-line (&optional arg)
-  "Copy current line."
-  (interactive "p")
-  (or arg (setq arg 1))
-  (if (and (> arg 0) (eobp) (save-excursion (forward-visible-line 0) (eobp)))
-      (signal 'end-of-buffer nil))
-  (if (and (< arg 0) (bobp) (save-excursion (end-of-visible-line) (bobp)))
-      (signal 'beginning-of-buffer nil))
-  (unless (eq last-command 'copy-region-as-kill)
-    (kill-new "")
-    (setq last-command 'copy-region-as-kill))
-  (cond ((zerop arg)
-         (save-excursion
-           (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
-           (copy-region-as-kill (point) (progn (end-of-visible-line) (point)))))
-        ((< arg 0)
-         (save-excursion
-           (copy-region-as-kill (point) (progn (end-of-visible-line) (point)))
-           (copy-region-as-kill (point)
-                                (progn (forward-visible-line (1+ arg))
-                                       (unless (bobp) (backward-char))
-                                       (point)))))
-        (t
-         (save-excursion
-           (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
-           (copy-region-as-kill (point)
-                                (progn (forward-visible-line arg) (point))))))
-  ;; wa 変更予定　末尾の改行削除
-  ;; (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
-  ;; (message (substring (car kill-ring-yank-pointer) 0 -1))
-  (kill-new (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil)
-  (message (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil))
+;; (defun copy-whole-line (&optional arg)
+;;   "Copy current line."
+;;   (interactive "p")
+;;   (or arg (setq arg 1))
+;;   (if (and (> arg 0) (eobp) (save-excursion (forward-visible-line 0) (eobp)))
+;;       (signal 'end-of-buffer nil))
+;;   (if (and (< arg 0) (bobp) (save-excursion (end-of-visible-line) (bobp)))
+;;       (signal 'beginning-of-buffer nil))
+;;   (unless (eq last-command 'copy-region-as-kill)
+;;     (kill-new "")
+;;     (setq last-command 'copy-region-as-kill))
+;;   (cond ((zerop arg)
+;;          (save-excursion
+;;            (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
+;;            (copy-region-as-kill (point) (progn (end-of-visible-line) (point)))))
+;;         ((< arg 0)
+;;          (save-excursion
+;;            (copy-region-as-kill (point) (progn (end-of-visible-line) (point)))
+;;            (copy-region-as-kill (point)
+;;                                 (progn (forward-visible-line (1+ arg))
+;;                                        (unless (bobp) (backward-char))
+;;                                        (point)))))
+;;         (t
+;;          (save-excursion
+;;            (copy-region-as-kill (point) (progn (forward-visible-line 0) (point)))
+;;            (copy-region-as-kill (point)
+;;                                 (progn (forward-visible-line arg) (point))))))
+;;   ;; wa 変更予定　末尾の改行削除
+;;   ;; (kill-new (substring (car kill-ring-yank-pointer) 0 -1) nil)
+;;   ;; (message (substring (car kill-ring-yank-pointer) 0 -1))
+;;   (kill-new (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil)
+;;   (message (replace-regexp-in-string "\n+$" "" (car kill-ring-yank-pointer)) nil))
 
-(global-set-key (kbd "M-k") 'copy-whole-line)
-(global-set-key (kbd "M-K") 'kill-whole-line)
+;; (global-set-key (kbd "M-k") 'copy-whole-line)
+;; (global-set-key (kbd "M-K") 'kill-whole-line)
+
+(when (require 'wa nil t)
+  (global-set-key (kbd "M-k") 'wa-copy-this-line)
+)
 
 ;; ange-ftp
 ;; keirin-express ftp setting
