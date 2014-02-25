@@ -88,7 +88,7 @@
 
 } else {
 
-}" nil 0)
+}" nil 1)
     ("ifes" "if () {
 
 } elseif () {
@@ -101,8 +101,9 @@
 } else {
 
 }" nil 0)
-    ("pr" "print_r();" nil 0)
+    ("pr" "print_r();" nil 2)
     ("ret" "return;" nil 7)
+    ("sta" "static::" nil 2)
     ("sw" "switch ($ppp) {
     case '0':
         ;
