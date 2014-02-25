@@ -275,23 +275,23 @@
 ;; 5.8 バックアップとオートセーブ                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; P102-103 バックアップとオートセーブの設定
-;; バックアップファイルを作成しない
-;; (setq make-backup-files nil) ; 初期値はt
-;; オートセーブファイルを作らない
-;; (setq auto-save-default nil) ; 初期値はt
+;; バックアップファイルを作成しない 初期値はt
+(setq make-backup-files nil)
+;; オートセーブファイルを作らない 初期値はt
+(setq auto-save-default nil)
 
 ;; バックアップファイルの作成場所をシステムのTempディレクトリに変更する
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+;; (setq backup-directory-alist
+;;       `((".*" . ,temporary-file-directory)))
 ;; オートセーブファイルの作成場所をシステムのTempディレクトリに変更する
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,temporary-file-directory t)))
 
 ;; バックアップとオートセーブファイルを~/.emacs.d/backups/へ集める
-(add-to-list 'backup-directory-alist
-             (cons "." "~/.emacs.d/backups/"))
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
+;; (add-to-list 'backup-directory-alist
+;;              (cons "." "~/.emacs.d/backups/"))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
 
 ;; オートセーブファイル作成までの秒間隔
 ;; (setq auto-save-timeout 15)
@@ -785,7 +785,7 @@
                   (cons tramp-file-name-regexp nil))
 
 ;; http://stackoverflow.com/questions/13794433/how-to-disable-autosave-for-tramp-buffers-in-emacs
-(setq tramp-auto-save-directory "/tmp")
+;; (setq tramp-auto-save-directory "/tmp")
 
 ;; (setq tramp-default-method "ssh")
 ;; (setq tramp-verbose 10)
@@ -1276,7 +1276,7 @@
   "Scroll current line to top of window.
 Replaces three keystroke sequence C-u 0 C-l."
   (interactive)
-  (recenter 15))
+  (recenter 10))
 
 (global-set-key [f6] 'line-to-top-of-window)
 
