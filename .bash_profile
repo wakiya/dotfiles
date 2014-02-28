@@ -3,7 +3,8 @@ export LESSCHARSET=utf-8
 
 export PATH=$PATH:~/bin
 
-alias git="/Applications/Xcode.app/Contents/Developer/usr/bin/git"
+# alias git="/Applications/Xcode.app/Contents/Developer/usr/bin/git"
+
 alias tmuxn="tmux new-session \; source-file ~/.tmux/session"
 
 export ORACLE_HOME=~/projects/dotfiles/.emacs.d/oracle/instantclient_10_2
