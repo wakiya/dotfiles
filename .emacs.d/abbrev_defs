@@ -69,16 +69,18 @@
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
+(define-abbrev-table 'outline-mode-abbrev-table '())
+
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'php-mode-abbrev-table
   '(
     ("ar" "array(''=>'',)" nil 1)
     ("emp" "empty();" nil 0)
-    ("for" "for ($i = 0; $i < $cnt; $i++) {
+    ("fo" "for ($i = 0; $i < $cnt; $i++) {
 
-}" nil 0)
-    ("fore" "foreach ($ar as $k => $v) {
+}" nil 1)
+    ("foe" "foreach ($ar as $k => $v) {
 
 }" nil 0)
     ("if" "if () {
@@ -101,7 +103,7 @@
 } else {
 
 }" nil 0)
-    ("pr" "print_r();" nil 2)
+    ("pr" "print_r();" nil 5)
     ("ret" "return;" nil 7)
     ("sta" "static::" nil 2)
     ("sw" "switch ($ppp) {
