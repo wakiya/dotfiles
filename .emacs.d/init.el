@@ -1209,9 +1209,10 @@
 ;; (global-set-key (kbd "M-k") 'copy-whole-line)
 ;; (global-set-key (kbd "M-K") 'kill-whole-line)
 
+;; wa.el
 (when (require 'wa nil t)
   (global-set-key (kbd "M-k") 'wa-copy-this-line)
-)
+  (global-set-key (kbd "C-c C-k") 'wa-kill-line-without-kill-ring))
 
 ;; ange-ftp
 ;; keirin-express ftp setting
@@ -1240,8 +1241,7 @@
   (global-set-key (kbd "C-;") 'er/expand-region)
   ;; リージョンを狭める
   (global-set-key (kbd "C-M-;") 'er/contract-region)
-  (transient-mark-mode t)
-)
+  (transient-mark-mode t))
 
 ;; バッファ自動再読み込み
 ;; emacs以外のものからファイルが編集された場合もbufferを再読込する

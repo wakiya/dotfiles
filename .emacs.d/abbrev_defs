@@ -49,6 +49,8 @@
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'html-mode-abbrev-table '())
+
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-emacs-lisp-mode-abbrev-table '())
@@ -76,17 +78,14 @@
 (define-abbrev-table 'php-mode-abbrev-table
   '(
     ("ar" "array(''=>'',)" nil 1)
-    ("emp" "empty()" nil 1)
-    ("empn" "!empty()" nil 0)
+    ("emp" "empty()" nil 3)
+    ("empn" "!empty()" nil 1)
     ("fo" "for ($i = 0; $i < $cnt; $i++) {
 
 }" nil 1)
     ("foe" "foreach ($ar as $k => $v) {
 
-}" nil 0)
-    ("if" "if () {
-
-}" nil 0)
+}" nil 2)
     ("ife" "if () {
 
 } else {
@@ -104,7 +103,10 @@
 } else {
 
 }" nil 0)
-    ("pr" "print_r();" nil 6)
+    ("ifo" "if () {
+
+}" nil 2)
+    ("pr" "print_r();" nil 9)
     ("ret" "return;" nil 7)
     ("sta" "static::" nil 2)
     ("sw" "switch ($ppp) {
@@ -116,7 +118,7 @@
         break;
     default:
        ;
-}" nil 0)
+}" nil 1)
    ))
 
 (define-abbrev-table 'pike-mode-abbrev-table
@@ -133,6 +135,8 @@
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
+(define-abbrev-table 'sgml-mode-abbrev-table '())
+
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
@@ -141,15 +145,16 @@
 
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
-    ("a" "AND " nil 2)
-    ("as" "AS " nil 4)
+    ("a" "AND " nil 8)
+    ("as" "AS " nil 6)
     ("cr" "CREATE " nil 0)
-    ("d" "DISTINCT " nil 0)
+    ("d" "DISTINCT " nil 1)
     ("del" "DELETE " nil 0)
-    ("f" "FROM " nil 1)
+    ("ex" "EXPLAIN " nil 4)
+    ("f" "FROM " nil 2)
     ("func" "FUNCTION " nil 0)
-    ("g" "GROUP BY " nil 0)
-    ("ha" "HAVING " nil 0)
+    ("g" "GROUP BY " nil 2)
+    ("h" "HAVING " nil 0)
     ("i" "INSERT " nil 0)
     ("in" "INNER JOIN ON " nil 0)
     ("ins" "INSERT " nil 0)
@@ -157,14 +162,16 @@
     ("isnn" "IS NOT NULL " nil 1)
     ("l" "LEFT JOIN ON " nil 0)
     ("lim" "LIMIT 0 " nil 0)
-    ("o" "ORDER BY " nil 0)
+    ("o" "ORDER BY " nil 2)
+    ("or" "OR " nil 0)
     ("proc" "PROCEDURE " nil 0)
-    ("s" "SELECT " nil 3)
+    ("s" "SELECT " nil 5)
     ("sf" "SELECT *
 FROM " nil 2)
     ("u" "UPDATE table SET field = '' WHERE " nil 0)
+    ("uni" "UNION" nil 1)
     ("upd" "UPDATE " nil 0)
-    ("w" "WHERE " nil 1)
+    ("w" "WHERE " nil 2)
    ))
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
