@@ -11,7 +11,9 @@
 (defun wa-copy-this-line ()
   "現在行をキルリングにセットする。改行無し。メッセージ有り"
   (interactive)
-  (kill-new (replace-regexp-in-string "\n+$" "" (thing-at-point 'line)))
+  ;; http://d.hatena.ne.jp/gongoZ/20111206/1323177550
+  ;; 行頭、行末の改行、空白を削除
+  (kill-new (replace-regexp-in-string "\\`\\(?:\\s-\\|\n\\)+\\|\\(?:\\s-\\|\n\\)+\\'" "" (thing-at-point 'line)))
   (message (car kill-ring)))
 
 (defun wa-kill-line-without-kill-ring ()
