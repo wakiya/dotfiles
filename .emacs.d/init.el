@@ -1212,7 +1212,9 @@
 ;; wa.el
 (when (require 'wa nil t)
   (global-set-key (kbd "M-k") 'wa-copy-this-line)
-  (global-set-key (kbd "C-c C-k") 'wa-kill-line-without-kill-ring))
+  (global-set-key (kbd "C-c C-k") 'wa-kill-line-without-kill-ring)
+  (global-set-key (kbd "C-a") 'vs-move-beginning-of-line)
+  )
 
 ;; ange-ftp
 ;; keirin-express ftp setting
