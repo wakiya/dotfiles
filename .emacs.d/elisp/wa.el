@@ -3,6 +3,7 @@
 ;;   (global-set-key (kbd "M-k") 'wa-copy-this-line)
 ;;   (global-set-key (kbd "C-c C-k") 'wa-kill-line-without-kill-ring)
 ;;   (global-set-key (kbd "C-a") 'vs-move-beginning-of-line)
+;;   (global-set-key (kbd "C-c C-j") 'wa-set-region-one-line)
 ;; )
 
 (require 'cl)
@@ -37,6 +38,11 @@
   (cond
    ((is-reverse-point-whitespace-all) (move-beginning-of-line nil))
    (t (back-to-indentation))))
+
+(defun wa-set-region-one-line ()
+  (interactive)
+  (push-mark (beginning-of-line) nil t)
+  (end-of-line))
 
 (provide 'wa)
 
