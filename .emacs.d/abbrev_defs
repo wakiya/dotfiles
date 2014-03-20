@@ -77,38 +77,41 @@
 
 (define-abbrev-table 'php-mode-abbrev-table
   '(
-    ("ar" "array()" nil 1)
+    ("ar" "array()" nil 5)
     ("arr" "array(''=>'',)" nil 2)
     ("emp" "empty($)" nil 3)
     ("empn" "!empty($)" nil 1)
     ("fo" "for ($i = 0; $i < $cnt; $i++) {
 
 }" nil 1)
-    ("foe" "foreach ($ar as $k => $v) {
+    ("foe" "foreach ($ar as $v) {
 
-}" nil 2)
+}" nil 4)
+    ("foekv" "foreach ($ar as $k => $v) {
+
+}" nil 0)
     ("ife" "if () {
 
 } else {
 
-}" nil 2)
+}" nil 6)
     ("ifes" "if () {
 
 } elseif () {
 
-}" nil 0)
+}" nil 1)
     ("ifese" "if () {
 
 } elseif () {
 
 } else {
 
-}" nil 0)
+}" nil 1)
     ("ifo" "if () {
 
-}" nil 2)
-    ("pr" "print_r($);" nil 9)
-    ("ret" "return;" nil 7)
+}" nil 4)
+    ("pr" "print_r($);" nil 15)
+    ("ret" "return;" nil 8)
     ("sta" "static::" nil 2)
     ("sw" "switch ($) {
     case '0':
@@ -147,14 +150,14 @@
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
     ("a" "AND " nil 8)
-    ("as" "AS " nil 6)
+    ("as" "AS " nil 7)
     ("cr" "CREATE " nil 0)
     ("d" "DISTINCT " nil 1)
     ("del" "DELETE " nil 0)
     ("ex" "EXPLAIN " nil 4)
-    ("f" "FROM " nil 2)
+    ("f" "FROM " nil 3)
     ("func" "FUNCTION " nil 0)
-    ("g" "GROUP BY " nil 2)
+    ("g" "GROUP BY " nil 3)
     ("h" "HAVING " nil 0)
     ("i" "INSERT " nil 0)
     ("in" "INNER JOIN ON " nil 0)
@@ -163,16 +166,16 @@
     ("isnn" "IS NOT NULL " nil 1)
     ("l" "LEFT JOIN ON " nil 0)
     ("lim" "LIMIT 0 " nil 0)
-    ("o" "ORDER BY " nil 2)
+    ("o" "ORDER BY " nil 3)
     ("or" "OR " nil 0)
     ("proc" "PROCEDURE " nil 0)
-    ("s" "SELECT " nil 5)
+    ("s" "SELECT " nil 6)
     ("sf" "SELECT *
 FROM " nil 2)
     ("u" "UPDATE table SET field = '' WHERE " nil 0)
     ("uni" "UNION" nil 1)
     ("upd" "UPDATE " nil 0)
-    ("w" "WHERE " nil 2)
+    ("w" "WHERE " nil 3)
    ))
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
