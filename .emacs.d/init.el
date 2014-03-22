@@ -1001,7 +1001,7 @@
   (define-key global-map (kbd "<f8>") 'goto-last-change)
   (define-key global-map (kbd "s-<f8>") 'goto-last-change-reverse))
 
-;; p126 hippie-expand
+;; p136 hippie-expand
 ;; http://dev.ariel-networks.com/Members/matsuyama/emacs-abbrev/
 (define-key global-map (kbd "C-,") 'hippie-expand)
 (setq hippie-expand-try-functions-list
