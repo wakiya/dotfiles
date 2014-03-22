@@ -17,15 +17,23 @@
   (kill-new (replace-regexp-in-string "\\`\\(?:\\s-\\|\n\\)+\\|\\(?:\\s-\\|\n\\)+\\'" "" (thing-at-point 'line)))
   (message (car kill-ring)))
 
-(defun wa-kill-line-without-kill-ring ()
-  "Deletes a line, but does not put it in the kill-ring. (kinda)"
-  (interactive)
+;; (defun wa-kill-line-without-kill-ring ()
+;;   "Deletes a line, but does not put it in the kill-ring. (kinda)"
+;;   (interactive)
+;;   (move-beginning-of-line 1)
+;;   ;; http://flex.phys.tohoku.ac.jp/texi/eljman/eljman_210.html
+;;   ;; kill-line &optional count Comamnd
+;;   ;; (kill-line 1) ;;countに１を渡すと改行を含めキルする為、下記に変更
+;;   (kill-line)
+;;   (setq kill-ring (cdr kill-ring)))
+
+;; http://unix.stackexchange.com/questions/26360/emacs-deleting-a-line-without-sending-it-to-the-kill-ring
+(defun wa-kill-line-without-kill-ring (&optional arg)
+  (interactive "P")
   (move-beginning-of-line 1)
-  ;; http://flex.phys.tohoku.ac.jp/texi/eljman/eljman_210.html
-  ;; kill-line &optional count Comamnd
-  ;; (kill-line 1) ;;countに１を渡すと改行を含めキルする為、下記に変更
-  (kill-line)
-  (setq kill-ring (cdr kill-ring)))
+  (flet ((kill-region (begin end)
+                      (delete-region begin end)))
+    (kill-line arg)))
 
 ;; https://github.com/ncaq/vs-move-beginning-of-line
 (defun is-reverse-point-whitespace-all ()
