@@ -77,8 +77,8 @@
 
 (define-abbrev-table 'php-mode-abbrev-table
   '(
-    ("ar" "array()" nil 5)
-    ("arr" "array(''=>'',)" nil 2)
+    ("ar" "array()" nil 6)
+    ("arr" "array(''=>'',)" nil 3)
     ("emp" "empty($)" nil 3)
     ("empn" "!empty($)" nil 1)
     ("fo" "for ($i = 0; $i < $cnt; $i++) {
@@ -149,8 +149,9 @@
 
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
-    ("a" "AND " nil 8)
+    ("a" "AND " nil 14)
     ("as" "AS " nil 7)
+    ("co" "COALESCE(, '') " nil 0)
     ("cr" "CREATE " nil 0)
     ("d" "DISTINCT " nil 1)
     ("del" "DELETE " nil 0)
@@ -164,7 +165,7 @@
     ("ins" "INSERT " nil 0)
     ("isn" "IS NULL " nil 0)
     ("isnn" "IS NOT NULL " nil 1)
-    ("l" "LEFT JOIN ON " nil 0)
+    ("l" "LEFT JOIN ON " nil 1)
     ("lim" "LIMIT 0 " nil 0)
     ("o" "ORDER BY " nil 3)
     ("or" "OR " nil 0)
