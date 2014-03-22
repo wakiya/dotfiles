@@ -1208,6 +1208,7 @@
   (global-set-key (kbd "M-k") 'wa-copy-this-line)
   (global-set-key (kbd "C-c C-k") 'wa-kill-line-without-kill-ring)
   (global-set-key (kbd "C-a") 'vs-move-beginning-of-line)
+  (global-set-key (kbd "C-c C-j") 'wa-set-region-one-line)
   )
 
 ;; ange-ftp
