@@ -150,8 +150,8 @@
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
     ("a" "AND " nil 14)
-    ("as" "AS " nil 7)
-    ("co" "COALESCE(, '') " nil 0)
+    ("as" "AS " nil 8)
+    ("co" "COALESCE(, '') " nil 2)
     ("cr" "CREATE " nil 0)
     ("d" "DISTINCT " nil 1)
     ("del" "DELETE " nil 0)
