@@ -4,6 +4,7 @@
 ;;   (global-set-key (kbd "C-c C-k") 'wa-kill-line-without-kill-ring)
 ;;   (global-set-key (kbd "C-a") 'vs-move-beginning-of-line)
 ;;   (global-set-key (kbd "C-c C-j") 'wa-set-region-one-line)
+;;   (global-set-key (kbd "C-c ;") 'wa-paredit-comment-dwim-one-line)
 ;; )
 
 (require 'cl)
@@ -52,6 +53,12 @@
   (push-mark (beginning-of-line) nil t)
   (end-of-line))
 
+(defun wa-paredit-comment-dwim-one-line ()
+  (interactive)
+  (push-mark (beginning-of-line) nil t)
+  (end-of-line)
+  (paredit-comment-dwim))
+
 (provide 'wa)
 
-;;; wa.el ends here
+;; wa.el ends here
