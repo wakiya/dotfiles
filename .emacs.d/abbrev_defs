@@ -61,6 +61,8 @@
   '(
    ))
 
+(define-abbrev-table 'js-mode-abbrev-table '())
+
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table
@@ -110,8 +112,8 @@
     ("ifo" "if () {
 
 }" nil 4)
-    ("pr" "print_r($);" nil 15)
-    ("ret" "return;" nil 8)
+    ("pr" "print_r($);" nil 17)
+    ("ret" "return;" nil 9)
     ("sta" "static::" nil 2)
     ("sw" "switch ($) {
     case '0':
@@ -122,7 +124,19 @@
         break;
     default:
        ;
-}" nil 1)
+}" nil 2)
+    ("tryf" "try {
+    
+} catch (Exception $e) {
+    print_r($e->getMessage());
+} finally {
+    ;
+}" nil 0)
+    ("tryn" "try {
+    
+} catch (Exception $e) {
+    print_r($e->getMessage());
+}" nil 2)
    ))
 
 (define-abbrev-table 'pike-mode-abbrev-table
@@ -156,7 +170,7 @@
     ("d" "DISTINCT " nil 1)
     ("del" "DELETE " nil 0)
     ("ex" "EXPLAIN " nil 4)
-    ("f" "FROM " nil 3)
+    ("f" "FROM " nil 4)
     ("func" "FUNCTION " nil 0)
     ("g" "GROUP BY " nil 3)
     ("h" "HAVING " nil 0)
@@ -170,7 +184,7 @@
     ("o" "ORDER BY " nil 3)
     ("or" "OR " nil 0)
     ("proc" "PROCEDURE " nil 0)
-    ("s" "SELECT " nil 6)
+    ("s" "SELECT " nil 7)
     ("sf" "SELECT *
 FROM " nil 2)
     ("u" "UPDATE table SET field = '' WHERE " nil 0)
