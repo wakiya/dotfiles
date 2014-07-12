@@ -56,6 +56,9 @@
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+  ;; wa 2014-07-12
+  (add-to-list 'package-archives
+         '("melpa" . "http://melpa.milkbox.net/packages/") t)
   ;; インストールしたパッケージにロードパスを通して読み込む
   (package-initialize))
 
