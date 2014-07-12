@@ -1393,5 +1393,8 @@ Replaces three keystroke sequence C-u 0 C-l."
   (local-set-key (kbd "<backtab>") 'scala-indent:indent-with-reluctant-strategy)
 
   ;; and other bindings here
-))
-  )
+)))
+
+;; scala ensime
+;; (when (require 'ensime nil t)
+;;   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
