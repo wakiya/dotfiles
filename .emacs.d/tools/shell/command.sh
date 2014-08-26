@@ -14,3 +14,4 @@ find /var/www/TASK/fuel/app/modules/npr/ -type f -name "*.php" | xargs grep -n "
 find /var/www/TASK/fuel/core/ -type f -name "*.php" | xargs grep -n "error_info"
 
 find ~/Documents/ -name '*.txt' -ls
+find ~/Documents/lenovo_document/senmons_demand -name '*layout*' -ls
