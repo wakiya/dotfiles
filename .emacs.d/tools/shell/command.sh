@@ -12,6 +12,14 @@ find /var/www/TASK/fuel/app/modules/vis/ -type f -name "*.php" | xargs grep -n "
 find /var/www/TASK/fuel/app/modules/npr/ -type f -name "*.php" | xargs grep -n "Model_S3::forge();"
 # fuelphp core
 find /var/www/TASK/fuel/core/ -type f -name "*.php" | xargs grep -n "error_info"
+# yenjoy
+find /var/www/kdreams_api -type f -name "*.php" | xargs grep -n "curl_init();"
+find /var/www/kdreams_api -type f -name "*.php" | xargs grep -n "CURLOPT_SSLVERSION"
+find /var/www/wa -type f -name "*.php" | xargs grep -n "CURLOPT_SSLVERSION"
+find /var/www/wa -type f -name "*.php" | xargs grep -n "SSLVERSION"
+# task
+find /var/www/TASK/fuel/app/modules/xf -type f -name "*.php" | xargs grep -n "curl_init();"
+find /var/www/TASK/fuel/app/modules/xf -type f -name "*.php" | xargs grep -n "CURLOPT_SSLVERSION"
 
 find ~/Documents/ -name '*.txt' -ls
 find ~/Documents/lenovo_document/senmons_demand -name '*layout*' -ls
