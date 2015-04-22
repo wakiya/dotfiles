@@ -8,3 +8,6 @@
 /.emacs.d/tramp
 /.emacs.d/undohist/
 /.emacs.d/eshell/
+/.emacs.d/junk/
+/.emacs.d/as400/
+/.emacs.d/oracle/
