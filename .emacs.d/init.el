@@ -1347,7 +1347,6 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; 		  nil
 ;; 		  hs-c-like-adjust-block-beginning)
 ;; 		hs-special-modes-alist)
-;;   (put 'upcase-region 'disabled nil)
 ;; )
 
 ;; SQL*Plus
@@ -1398,3 +1397,4 @@ Replaces three keystroke sequence C-u 0 C-l."
 ;; scala ensime
 ;; (when (require 'ensime nil t)
 ;;   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
+(put 'upcase-region 'disabled nil)
